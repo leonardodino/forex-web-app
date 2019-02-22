@@ -10,6 +10,7 @@
   "dependencies": {
     "react": "^16.8.2",
     "react-dom": "^16.8.2",
+    "redux-actions": "^2.6.4",
     "use-interval": "^1.1.0"
   },
   "devDependencies": {

@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState } from 'react'
 import useInterval from 'use-interval'
 import fetchRates from '../api/fetch-rates'
-import { INTERVAL } from '../constants'
+import { INTERVAL, CURRENCIES } from '../constants'
 
 const useForexInterval = fn => useInterval(fn, INTERVAL, true)
 
@@ -40,6 +40,6 @@ const createForex = (currencies = []) => {
   return [Provider, useForex, useForexState]
 }
 
-const [Provider, useForex, useForexState] = createForex(['GBP', 'EUR', 'USD'])
+const [Provider, useForex, useForexState] = createForex(CURRENCIES)
 export { Provider, useForexState }
 export default useForex
