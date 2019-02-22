@@ -39,13 +39,13 @@ const PocketsDebug = ({ initialAmount = '10.00' }) => {
 
   return (
     <>
-      <hr />
+      <br />
       <pre>
         {Object.entries(funds)
           .map(([pair, value]) => `${pair}: ${value}`)
           .join('\n')}
       </pre>
-      <hr />
+      <br />
       <form onSubmit={handleSubmit}>
         <CurrencySelector value={from} onChange={setFrom} />
         <CurrencySelector value={to} onChange={setTo} />

@@ -8,7 +8,7 @@ const ForexDebug = () => {
     <>
       <pre>online: {(!!online).toString()}</pre>
       <pre>updated: {updated ? new Date(updated).toString() : 'N/A'}</pre>
-      <hr />
+      <br />
       <pre>
         {Object.entries(rates)
           .map(([pair, value]) => `${pair}: ${value}`)
