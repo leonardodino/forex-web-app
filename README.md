@@ -1,5 +1,11 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Credits
+
+| name      | source                                                                               |
+| --------- | ------------------------------------------------------------------------------------ |
+| `favicon` | [favicon.io](https://favicon.io) feat. [twemoji](https://github.com/twitter/twemoji) |
+
 ## Available Scripts
 
 In the project directory, you can run:
