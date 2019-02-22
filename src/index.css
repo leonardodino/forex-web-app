@@ -14,5 +14,7 @@ html {
 }
 
 body {
-  font: normal normal 16px/1.33 sans-serif;
+  font: normal normal 16px/1.33 'Inter', system-ui, -apple-system,
+    BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif,
+    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
 }
