@@ -5,6 +5,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 | name      | source                                                                               |
 | --------- | ------------------------------------------------------------------------------------ |
 | `favicon` | [favicon.io](https://favicon.io) feat. [twemoji](https://github.com/twitter/twemoji) |
+| forex api | [cryptocompare.com](https://min-api.cryptocompare.com/)                              |
 
 ## Available Scripts
 
