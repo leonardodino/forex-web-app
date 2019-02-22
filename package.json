@@ -9,7 +9,8 @@
   },
   "dependencies": {
     "react": "^16.8.2",
-    "react-dom": "^16.8.2"
+    "react-dom": "^16.8.2",
+    "use-interval": "^1.1.0"
   },
   "devDependencies": {
     "prettier": "1.16.4",
