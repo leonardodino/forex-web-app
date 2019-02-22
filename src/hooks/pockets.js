@@ -11,16 +11,14 @@ const currencyActions = currency => ({
   exchange: payload => actions.exchange({ from: currency, ...payload }),
 })
 
-const reducer = handleActions(
-  {
-    [actions.exchange]: (state, { payload: { from, to, amount, rate } }) => ({
-      ...(state || {}),
-      [from]: state[from] - amount,
-      [to]: state[to] + amount * rate,
-    }),
-  },
-  {},
-)
+const reducer = handleActions({
+  [actions.exchange]: (state, { payload: { from, to, amount, rate } }) => ({
+    ...state,
+    [from]: state[from] - amount,
+    [to]: state[to] + amount * rate,
+  }),
+})
+
 const noop = () => {}
 const createPockets = (currencies = []) => {
   const FundsContext = createContext({})
