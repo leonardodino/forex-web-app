@@ -1,4 +1,5 @@
-import React, { useState, useReducer, useEffect, useRef } from 'react'
+import React, { useState, useReducer, useMemo, useEffect, useRef } from 'react'
+import Dinero from 'dinero.js'
 import { handleActions } from '../utils/redux'
 import useForex from '../hooks/forex'
 import { usePocket } from '../hooks/pockets'
@@ -24,43 +25,61 @@ const CurrencySelector = ({ except, ...props }) => (
   </select>
 )
 
-const convert = value => parseFloat(value).toFixed(2)
+const format = dinero => {
+  const precision = dinero.getPrecision()
+  const format = precision ? `0.${'0'.repeat(precision)}` : '0'
+  return dinero.toFormat(format)
+}
+
+const toInteger = (value, precision = 2) => {
+  if (typeof value === 'number') return toInteger(value.toFixed(precision))
+  return value.replace('.', '') | 0
+}
 
 const reducer = handleActions({
   focus: (state, { source }) => {
     return { ...state, source }
   },
-  input: ({ rate: r }, { value: inputValue, type: source, rate = r }) => {
-    return { rate, source, inputValue, outputValue: inputValue * rate }
+  input: ({ rate: r }, { value, rate = r }) => {
+    const inputValue = Dinero({ amount: toInteger(value) })
+    const outputValue = inputValue.multiply(rate)
+    return { source: 'input', rate, inputValue, outputValue }
   },
-  output: ({ rate: r }, { value: outputValue, type: source, rate = r }) => {
-    return { rate, source, outputValue, inputValue: outputValue / rate }
+  output: ({ rate: r }, { value, rate = r }) => {
+    const outputValue = Dinero({ amount: toInteger(value) })
+    const inputValue = outputValue.divide(rate)
+    return { source: 'output', rate, inputValue, outputValue }
   },
-  forex: ({ source, [`${source}Value`]: value }, { rate }) => {
-    return reducer({ rate }, { type: source, value })
+  forex: ({ source, [`${source}Value`]: dinero }, { rate }) => {
+    return reducer({ rate }, { type: source, value: dinero.toUnit() })
   },
 })
 
-const init = (value, rate) => reducer({ rate }, { type: 'input', value })
+const useInitialState = (value, rate = 0) => {
+  const action = { type: 'input', value }
+  return useMemo(() => reducer({ rate }, action), [value, rate])
+}
 
 const useForexForm = (initialValue, rate) => {
-  const [state, dispatch] = useReducer(reducer, init(initialValue, rate))
+  const initialState = useInitialState(initialValue, rate)
+  const [state, dispatch] = useReducer(reducer, initialState)
 
   useEffect(() => {
+    if (typeof rate !== 'number') return
     dispatch({ type: 'forex', rate })
   }, [rate])
 
   const forms = {
     input: {
       ref: useRef(),
-      value: convert(state.inputValue),
-      onChange: e => dispatch({ type: 'input', value: e.target.value, rate }),
+      value: format(state.inputValue),
+      onChange: e => dispatch({ type: 'input', value: e.target.value }),
       onFocus: () => dispatch({ type: 'focus', source: 'input' }),
     },
     output: {
       ref: useRef(),
-      value: convert(state.outputValue),
-      onChange: e => dispatch({ type: 'output', value: e.target.value, rate }),
+      value: format(state.outputValue),
+      onChange: e => dispatch({ type: 'output', value: e.target.value }),
       onFocus: () => dispatch({ type: 'focus', source: 'output' }),
     },
   }
@@ -70,7 +89,7 @@ const useForexForm = (initialValue, rate) => {
     if (forms[state.source].ref.current) forms[state.source].ref.current.focus()
   }
 
-  return [state.inputValue, reset, forms]
+  return [state.inputValue.toUnit(), reset, forms]
 }
 
 const ExchangeForm = ({ initialAmount = 10 }) => {
@@ -84,7 +103,7 @@ const ExchangeForm = ({ initialAmount = 10 }) => {
 
   const handleSubmit = event => {
     event.preventDefault()
-    exchange({ to, amount: parseFloat(amount), rate })
+    exchange({ to, amount, rate })
     reset()
   }
 
@@ -94,7 +113,6 @@ const ExchangeForm = ({ initialAmount = 10 }) => {
     const current = { to, from }
     setTo(current.from)
     setFrom(current.to)
-    reset(amount)
   }
 
   return (
