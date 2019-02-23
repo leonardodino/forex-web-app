@@ -1,6 +1,7 @@
 import React from 'react'
 import { usePockets } from '../hooks/pockets'
 import ExchangeForm from './ExchangeForm'
+import { format } from '../utils/dinero'
 
 const PocketsDebug = () => {
   const [funds] = usePockets()
@@ -9,7 +10,7 @@ const PocketsDebug = () => {
       <br />
       <pre>
         {Object.entries(funds)
-          .map(([pair, value]) => `${pair}: ${value}`)
+          .map(([pair, dinero]) => `${pair}: ${format(dinero)}`)
           .join('\n')}
       </pre>
       <br />

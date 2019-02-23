@@ -12,3 +12,5 @@ export const handleActions = (reducerMap = {}, initialState = {}, options) =>
 
 export const bindActionCreators = (actionCreators, dispatch) =>
   mapValues(action => (...args) => dispatch(action(...args)))(actionCreators)
+
+export { bindActionCreators as bind }
