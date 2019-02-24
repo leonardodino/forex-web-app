@@ -1,5 +1,5 @@
 import React, { forwardRef } from 'react'
-import { ThemeProvider } from 'styled-components'
+import { ThemeProvider, createGlobalStyle } from 'styled-components'
 
 const theme = {
   bg: 'white',
@@ -18,18 +18,28 @@ export const Invert = ({ children, invert = true }) => {
   )
 }
 
+// optimize chained calls, returns original component
+const wrapped = Symbol('wrapped')
 export const invert = Component => {
+  if (Component[wrapped]) return Component[wrapped]
   const Inverted = forwardRef((props, ref) => (
     <Invert>
       <Component {...props} ref={ref} />
     </Invert>
   ))
+  Inverted[wrapped] = Component
   return Inverted
 }
+
+const rgbTuple = c => ({ black: '0,0,0', white: '255,255,255' }[c])
 
 export const bg = ({ theme }) => theme.bg
 export const fg = ({ theme }) => theme.fg
 export const base = ({ theme }) => `
+  --bg-rgb: ${rgbTuple(bg({ theme }))};
+  --fg-rgb: ${rgbTuple(fg({ theme }))};
   background: ${bg({ theme })};
   color: ${fg({ theme })};
 `
+
+export const BaseStyle = createGlobalStyle`:root{ ${base} }`

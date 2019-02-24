@@ -1,5 +1,5 @@
 import React from 'react'
-import { Provider as ThemeProvider } from '../utils/theme'
+import { Provider as ThemeProvider, BaseStyle } from '../utils/theme'
 import { Provider as ForexProvider } from '../hooks/forex'
 import { Provider as PocketsProvider } from '../hooks/pockets'
 import ForexDebug from './ForexDebug'
@@ -10,6 +10,7 @@ const App = () => {
     <ThemeProvider>
       <PocketsProvider>
         <ForexProvider>
+          <BaseStyle />
           <h1>forex app</h1>
           <br />
           <ForexDebug />

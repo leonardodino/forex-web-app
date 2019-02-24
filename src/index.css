@@ -9,3 +9,8 @@ body {
   font-feature-settings: 'kern', 'liga', 'calt', 'pnum' 0, 'tnum', 'onum' 0,
     'lnum', 'dlig', 'case';
 }
+
+::selection {
+  background: rgba(var(--fg-rgb), 0.99);
+  color: rgba(var(--bg-rgb), 0.99);
+}
