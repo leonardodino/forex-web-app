@@ -1,4 +1,4 @@
-import React, { useState, useReducer, useMemo, useEffect, useRef } from 'react'
+import React, { useState, useReducer, useEffect, useRef } from 'react'
 import Dinero from 'dinero.js'
 import { handleActions } from '../utils/redux'
 import { toAmount, format } from '../utils/dinero'
@@ -6,13 +6,13 @@ import useForex from '../hooks/forex'
 import { usePocket } from '../hooks/pockets'
 import { CURRENCIES } from '../constants'
 
-const useFormState = (...args) => {
-  const [state, setter] = useState(...args)
+const useFormState = initialState => {
+  const [state, setter] = useState(initialState)
+
   const handler = event => {
-    if (event && event.target && event.target.value)
-      return setter(event.target.value)
-    return setter(event)
+    setter(event && event.target ? event.target.value : event)
   }
+
   return [state, handler]
 }
 
@@ -31,28 +31,32 @@ const reducer = handleActions({
     return { ...state, source }
   },
   input: ({ rate: r }, { value, rate = r }) => {
-    const inputValue = Dinero({ amount: toAmount(value) })
-    const outputValue = inputValue.multiply(rate)
-    return { source: 'input', rate, inputValue, outputValue }
+    const input = Dinero({ amount: toAmount(value) })
+    const output = input.multiply(rate)
+    return { source: 'input', rate, input, output }
   },
   output: ({ rate: r }, { value, rate = r }) => {
-    const outputValue = Dinero({ amount: toAmount(value) })
-    const inputValue = outputValue.divide(rate)
-    return { source: 'output', rate, inputValue, outputValue }
+    const output = Dinero({ amount: toAmount(value) })
+    const input = output.divide(rate)
+    return { source: 'output', rate, input, output }
   },
-  forex: ({ source, [`${source}Value`]: dinero }, { rate }) => {
+  forex: ({ source, [source]: dinero }, { rate }) => {
     return reducer({ rate }, { type: source, value: format(dinero) })
   },
 })
 
-const useInitialState = (value, rate = 0) => {
-  const action = { type: 'input', value }
-  return useMemo(() => reducer({ rate }, action), [value, rate])
-}
+const init = ({ value, rate }) => reducer({ rate }, { type: 'input', value })
 
-const useForexForm = (initialValue, rate) => {
-  const initialState = useInitialState(initialValue, rate)
-  const [state, dispatch] = useReducer(reducer, initialState)
+const useForexInput = (type, state, dispatch) => ({
+  ref: useRef(),
+  value: format(state[type]),
+  onChange: e => dispatch({ type, value: e.target.value }),
+  onFocus: () => dispatch({ type: 'focus', source: type }),
+})
+
+const useForexForm = (initialValue, rate = 0) => {
+  const initialState = { value: initialValue, rate }
+  const [state, dispatch] = useReducer(reducer, initialState, init)
 
   useEffect(() => {
     if (typeof rate !== 'number') return
@@ -60,18 +64,8 @@ const useForexForm = (initialValue, rate) => {
   }, [rate])
 
   const forms = {
-    input: {
-      ref: useRef(),
-      value: format(state.inputValue),
-      onChange: e => dispatch({ type: 'input', value: e.target.value }),
-      onFocus: () => dispatch({ type: 'focus', source: 'input' }),
-    },
-    output: {
-      ref: useRef(),
-      value: format(state.outputValue),
-      onChange: e => dispatch({ type: 'output', value: e.target.value }),
-      onFocus: () => dispatch({ type: 'focus', source: 'output' }),
-    },
+    input: useForexInput('input', state, dispatch),
+    output: useForexInput('output', state, dispatch),
   }
 
   const reset = (value = initialValue) => {
@@ -79,22 +73,22 @@ const useForexForm = (initialValue, rate) => {
     if (forms[state.source].ref.current) forms[state.source].ref.current.focus()
   }
 
-  return [state.inputValue, reset, forms]
+  return [state.input, reset, forms]
 }
 
 const ExchangeForm = ({ initialAmount = 10 }) => {
   const [from, setFrom] = useFormState('GBP')
   const [to, setTo] = useFormState('EUR')
   const [rate, { online, error }] = useForex(from, to)
-  const [amount, reset, forms] = useForexForm(initialAmount, rate)
+  const [requested, reset, forms] = useForexForm(initialAmount, rate)
   const [available, { exchange }] = usePocket(from)
-  const overdraft = amount.getAmount() > available.getAmount()
-  const enabled = online && !error && !overdraft && amount.getAmount() > 0
+  const overdraft = requested.getAmount() > available.getAmount()
+  const enabled = online && !error && !overdraft && requested.getAmount() > 0
 
   const handleSubmit = event => {
     event.preventDefault()
-    const dinero = Dinero({ amount: amount.getAmount(), currency: from })
-    exchange({ to, amount: dinero, rate })
+    const amount = Dinero({ amount: requested.getAmount(), currency: from })
+    exchange({ to, amount, rate })
     reset()
   }
 
