@@ -6,14 +6,17 @@ const ForexDebug = () => {
   if (error) return <pre style={{ color: 'red' }}>{error.toString()}</pre>
   return (
     <>
-      <pre>online: {(!!online).toString()}</pre>
-      <pre>updated: {updated ? new Date(updated).toString() : 'N/A'}</pre>
+      <div>
+        online: {(!!online).toString()}&nbsp; updated:{' '}
+        {isFinite(updated) ? new Date(updated).toString() : 'N/A'}
+      </div>
       <br />
-      <pre>
+      <marquee style={{ whiteSpace: 'pre' }}>
         {Object.entries(rates)
-          .map(([pair, value]) => `${pair}: ${value}`)
-          .join('\n')}
-      </pre>
+          .map(([pair, value]) => `${pair}=${value}`)
+          .join('   ')}
+      </marquee>
+      <br />
     </>
   )
 }

@@ -18,6 +18,15 @@ const createForex = (currencies = []) => {
     const { online, updated, error, ...rates } = useContext(ForexContext)
     return { online, updated, error, rates, currencies }
   }
+  const useCurrencyForex = currency => {
+    const { rates: allRates, ...status } = useForexState()
+    const rates = Object.entries(allRates).reduce((rates, [key, rate]) => {
+      const outputKey = key.replace(`${currency}:`, '')
+      if (key !== outputKey) rates[outputKey] = rate
+      return rates
+    }, {})
+    return { rates, ...status }
+  }
 
   const Provider = ({ children }) => {
     const [state, setState] = useState({ online: false, updated: -Infinity })
@@ -37,9 +46,10 @@ const createForex = (currencies = []) => {
     )
   }
 
-  return [Provider, useForex, useForexState]
+  return [Provider, useForex, useForexState, useCurrencyForex]
 }
 
-const [Provider, useForex, useForexState] = createForex(CURRENCIES)
-export { Provider, useForexState }
+const [Provider, ...hooks] = createForex(CURRENCIES)
+const [useForex, useForexState, useCurrencyForex] = hooks
+export { Provider, useForexState, useCurrencyForex }
 export default useForex

@@ -1,18 +1,16 @@
 import React from 'react'
 import { usePockets } from '../hooks/pockets'
 import ExchangeForm from './ExchangeForm'
-import { format } from '../utils/dinero'
+import PocketCard from './PocketCard'
 
 const PocketsDebug = () => {
   const [funds] = usePockets()
   return (
     <>
       <br />
-      <pre>
-        {Object.entries(funds)
-          .map(([pair, dinero]) => `${pair}: ${format(dinero)}`)
-          .join('\n')}
-      </pre>
+      {Object.entries(funds).map(([currency, fund]) => (
+        <PocketCard key={currency} fund={fund} />
+      ))}
       <br />
       <ExchangeForm />
     </>
