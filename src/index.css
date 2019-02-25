@@ -14,3 +14,14 @@ body {
   background: rgba(var(--fg-rgb), 0.99);
   color: rgba(var(--bg-rgb), 0.99);
 }
+
+@media (pointer: coarse) {
+  /* disable selection on phones for app-like experience */
+  *:not(input) {
+    user-select: none;
+  }
+  /* add custom tap highlight */
+  * {
+    -webkit-tap-highlight-color: rgba(var(--fg-rgb), 0.1);
+  }
+}

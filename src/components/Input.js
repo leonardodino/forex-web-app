@@ -3,6 +3,7 @@ import { base } from '../utils/theme'
 
 const Input = styled.input`
   ${base}
+  outline: none;
   appearance: none;
   caret-color: currentColor;
   padding: 0;

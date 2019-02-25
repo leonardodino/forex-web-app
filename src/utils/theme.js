@@ -4,6 +4,7 @@ import { ThemeProvider, createGlobalStyle } from 'styled-components'
 const theme = {
   bg: 'white',
   fg: 'black',
+  focus: '#119dff',
   invert: ({ bg, fg, ...rest }) => ({ bg: fg, fg: bg, ...rest }),
 }
 
@@ -43,3 +44,22 @@ export const base = ({ theme }) => `
 `
 
 export const BaseStyle = createGlobalStyle`:root{ ${base} }`
+
+const getFocusSelector = ({ element, within }) =>
+  `${element}:${within ? 'focus-within' : 'focus'}`
+
+const getFocusCss = selector => ({ theme }) => `
+  outline: none !important;
+  ::-moz-focus-inner { border: 0 }
+  ${selector} { box-shadow: 0 0 0 3px ${theme.focus} }
+`
+
+export const focus = ({
+  theme,
+  element = '&',
+  within = false,
+  selector = getFocusSelector({ element, within }),
+}) => {
+  const getter = getFocusCss(selector)
+  return theme ? getter({ theme }) : getter
+}

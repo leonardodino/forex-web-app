@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { fg, base, invert } from '../utils/theme'
+import { fg, base, invert, focus } from '../utils/theme'
 import Container from './Container'
 
 const gap = '0.375rem'
@@ -9,6 +9,7 @@ const fontSize = '0.75rem'
 
 const Wrapper = styled.button`
   ${base}
+  ${focus}
   appearance: none;
   cursor: pointer;
   font-family: inherit;

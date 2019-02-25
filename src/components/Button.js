@@ -1,10 +1,12 @@
 import React from 'react'
 import styled from 'styled-components'
-import { base, fg } from '../utils/theme'
+import { base, fg, focus } from '../utils/theme'
 import Container from './Container'
 
 const Wrapper = styled.button`
   ${base}
+  ${focus}
+  margin-bottom: 0.25rem;
   appearance: none;
   display: block;
   width: 100%;

@@ -1,26 +1,31 @@
 import React from 'react'
 import styled from 'styled-components'
-import { base } from '../utils/theme'
+import { base, focus } from '../utils/theme'
 
 const Wrapper = styled.label`
   ${base}
+  ${focus({ within: true })}
+  cursor: pointer;
   display: flex;
   align-items: center;
   position: relative;
+  overflow: hidden;
   line-height: 1.5rem;
-  padding-right: 0.5rem;
+  border-radius: 0.25rem;
+  padding: 0 0.5rem;
+  margin-left: -0.5rem;
+  flex: 0 0 auto;
 `
 
 const Field = styled.select`
-  background: transparent;
   border-radius: 0;
   font-size: 1rem;
   display: block;
   appearance: none;
   border: none;
-  color: transparent;
   opacity: 0;
   position: absolute;
+  left: 0;
   width: 100%;
   height: 100%;
   cursor: pointer;
@@ -31,10 +36,17 @@ const Value = styled.div`
   margin: 0.5rem 0.5rem 0.5rem 0;
 `
 
+const ChevronSVG = styled.svg`
+  width: ${p => p.size}px;
+  height: ${p => p.size}px;
+  fill: none;
+  flex: 0 0 auto;
+`
+
 const Chevron = ({ size = 16, strokeWidth = 1.5, color = 'currentColor' }) => (
-  <svg viewBox='0 0 16 16' width={size} height={size} fill='none'>
+  <ChevronSVG viewBox='0 0 16 16' size={size}>
     <path stroke={color} strokeWidth={strokeWidth} d='M4 6l4 4 4-4' />
-  </svg>
+  </ChevronSVG>
 )
 
 const Select = ({ style, className, ...props }) => (
