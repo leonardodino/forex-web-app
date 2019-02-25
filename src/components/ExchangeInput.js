@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled from 'styled-components/macro'
 import { invert, base } from '../utils/theme'
 import Container from './Container'
 import CurrencySelector from './CurrencySelector'

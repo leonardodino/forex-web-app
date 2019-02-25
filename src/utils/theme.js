@@ -1,5 +1,6 @@
-import React, { forwardRef } from 'react'
-import { ThemeProvider, createGlobalStyle } from 'styled-components'
+import React, { forwardRef, Fragment } from 'react'
+import { ThemeProvider, createGlobalStyle } from 'styled-components/macro'
+import { wrapDisplayName } from './react'
 
 const theme = {
   bg: 'white',
@@ -28,6 +29,11 @@ export const invert = Component => {
       <Component {...props} ref={ref} />
     </Invert>
   ))
+
+  if (process.env.NODE_ENV !== 'production') {
+    Inverted.displayName = wrapDisplayName('invert', Component)
+  }
+
   Inverted[wrapped] = Component
   return Inverted
 }
@@ -43,7 +49,13 @@ export const base = ({ theme }) => `
   color: ${fg({ theme })};
 `
 
-export const BaseStyle = createGlobalStyle`:root{ ${base} }`
+const GlobalStyle = createGlobalStyle`:root{ ${base} }`
+export const StyleProvider = ({ children }) => (
+  <Fragment>
+    <GlobalStyle />
+    {children}
+  </Fragment>
+)
 
 const getFocusSelector = ({ element, within }) =>
   `${element}:${within ? 'focus-within' : 'focus'}`

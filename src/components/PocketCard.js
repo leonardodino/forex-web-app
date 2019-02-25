@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled from 'styled-components/macro'
 import { fg, base, invert } from '../utils/theme'
 import { format } from '../utils/dinero'
 import { useCurrencyForex } from '../hooks/forex'
