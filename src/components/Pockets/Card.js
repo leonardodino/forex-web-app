@@ -1,8 +1,8 @@
 import React from 'react'
 import styled from 'styled-components/macro'
-import { fg, base, invert } from '../utils/theme'
-import { format } from '../utils/dinero'
-import { useCurrencyForex } from '../hooks/forex'
+import { fg, base, invert } from '../../utils/theme'
+import { format } from '../../utils/dinero'
+import { useCurrencyForex } from '../../hooks/forex'
 
 const Wrapper = styled.div`
   display: inline-block;
@@ -36,9 +36,8 @@ const Amount = styled.div`
 `
 
 const ForexWrapper = styled(Flex)`
-  border-left: 1px solid ${fg};
-  &:first-child {
-    border: 0;
+  & + & {
+    border-left: 1px solid ${fg};
   }
 `
 

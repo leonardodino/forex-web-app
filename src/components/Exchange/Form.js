@@ -1,12 +1,12 @@
 import React, { useState, useReducer, useEffect, useRef } from 'react'
 import Dinero from 'dinero.js'
-import { handleActions } from '../utils/redux'
-import { toAmount, format } from '../utils/dinero'
-import useForex from '../hooks/forex'
-import { usePocket } from '../hooks/pockets'
-import { InputLine, OutputLine } from './ExchangeInput'
+import { handleActions } from '../../utils/redux'
+import { toAmount, format } from '../../utils/dinero'
+import useForex from '../../hooks/forex'
+import { usePocket } from '../../hooks/pockets'
+import { InputLine, OutputLine } from './Inputs'
 import FlipButton from './FlipButton'
-import Button from './Button'
+import Button from './SubmitButton'
 
 const useFormState = initialState => {
   const [state, setter] = useState(initialState)
@@ -68,7 +68,7 @@ const useForexForm = (initialValue, rate = 0) => {
   return [state.input, reset, forms]
 }
 
-const ExchangeForm = ({ initialAmount = 10 }) => {
+const ExchangeForm = ({ initialAmount = 0 }) => {
   const [from, setFrom] = useFormState('GBP')
   const [to, setTo] = useFormState('EUR')
   const [rate, { online, error }] = useForex(from, to)

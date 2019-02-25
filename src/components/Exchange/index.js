@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
-import { Invert } from '../utils/theme'
-import SectionHeader from './SectionHeader'
-import ExchangeForm from './ExchangeForm'
+import { Invert } from '../../utils/theme'
+import SectionHeader from '../SectionHeader'
+import ExchangeForm from './Form'
 
 const defaultTitle = () => (
   <Invert>

@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components/macro'
-import { fg, base, invert, focus } from '../utils/theme'
-import Container from './Container'
+import { fg, base, invert, focus } from '../../utils/theme'
+import Container from '../Container'
 
 const gap = '0.375rem'
 const border = '1px solid'

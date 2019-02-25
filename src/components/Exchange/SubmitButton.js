@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components/macro'
-import { base, fg, focus } from '../utils/theme'
-import Container from './Container'
+import { base, fg, focus } from '../../utils/theme'
+import Container from '../Container'
 
 const Wrapper = styled.button`
   ${base}
@@ -43,7 +43,7 @@ const Return = ({ size = 20, strokeWidth = 1.75, color = 'currentColor' }) => (
   </svg>
 )
 
-const Button = ({ children, ...props }) => (
+const SubmitButton = ({ children, ...props }) => (
   <Wrapper {...props}>
     <Container>
       <Main>
@@ -54,4 +54,4 @@ const Button = ({ children, ...props }) => (
   </Wrapper>
 )
 
-export default Button
+export default SubmitButton
