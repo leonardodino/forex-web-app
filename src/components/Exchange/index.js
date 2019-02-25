@@ -1,13 +1,9 @@
 import React, { Fragment } from 'react'
-import { Invert } from '../../utils/theme'
+import { invert } from '../../utils/theme'
 import SectionHeader from '../SectionHeader'
 import ExchangeForm from './Form'
 
-const defaultTitle = () => (
-  <Invert>
-    <SectionHeader>Forex Web App</SectionHeader>
-  </Invert>
-)
+const defaultTitle = () => <SectionHeader>Forex Web App</SectionHeader>
 
 const Exchange = ({ renderTitle = defaultTitle }) => (
   <Fragment>
@@ -16,4 +12,4 @@ const Exchange = ({ renderTitle = defaultTitle }) => (
   </Fragment>
 )
 
-export default Exchange
+export default invert(Exchange)

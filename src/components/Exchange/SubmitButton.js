@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components/macro'
-import { base, fg, focus } from '../../utils/theme'
+import { base, fg, focus, invert } from '../../utils/theme'
 import Container from '../Container'
 
 const Wrapper = styled.button`
@@ -54,4 +54,4 @@ const SubmitButton = ({ children, ...props }) => (
   </Wrapper>
 )
 
-export default SubmitButton
+export default invert(SubmitButton)

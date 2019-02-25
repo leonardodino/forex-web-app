@@ -32,7 +32,7 @@ const Input = styled.input`
   flex: 0 1 autos;
 `
 
-export const InputLine = invert(({ currency, setCurrency, exclude, form }) => (
+export const InputLine = ({ currency, setCurrency, exclude, form }) => (
   <Wrapper>
     <StyledContainer>
       <CurrencySelector
@@ -43,6 +43,6 @@ export const InputLine = invert(({ currency, setCurrency, exclude, form }) => (
       <Input {...form} pattern='\d{1,}(\.\d{2})?' />
     </StyledContainer>
   </Wrapper>
-))
+)
 
 export const OutputLine = invert(InputLine)

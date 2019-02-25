@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components/macro'
-import { fg, base, invert, focus } from '../../utils/theme'
+import { fg, base, focus } from '../../utils/theme'
 import Container from '../Container'
 
 const gap = '0.375rem'
@@ -54,7 +54,7 @@ const Rate = styled.div`
   flex: 0 0 auto;
 `
 
-const FlipButton = invert(({ rate, ...props }) => {
+const FlipButton = ({ rate, ...props }) => {
   if (typeof rate !== 'number') return null
   return (
     <Wrapper type='button' {...props}>
@@ -62,7 +62,7 @@ const FlipButton = invert(({ rate, ...props }) => {
       <Rate>{rate}</Rate>
     </Wrapper>
   )
-})
+}
 
 const AbsoluteButton = styled(FlipButton)`
   position: absolute;

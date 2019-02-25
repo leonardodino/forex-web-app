@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components/macro'
-import { fg, base, invert } from '../../utils/theme'
+import { fg, base, Invert } from '../../utils/theme'
 import { format } from '../../utils/dinero'
 import { useCurrencyForex } from '../../hooks/forex'
 
@@ -53,12 +53,14 @@ const ForexRate = styled.div`
   line-height: 1rem;
 `
 
-const Header = invert(({ currency, amount }) => (
-  <Flex>
-    <Currency>{currency}</Currency>
-    <Amount>{amount}</Amount>
-  </Flex>
-))
+const Header = ({ currency, amount }) => (
+  <Invert>
+    <Flex>
+      <Currency>{currency}</Currency>
+      <Amount>{amount}</Amount>
+    </Flex>
+  </Invert>
+)
 
 const Forex = ({ currency, rate }) => (
   <ForexWrapper>
