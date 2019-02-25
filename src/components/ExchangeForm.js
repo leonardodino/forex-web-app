@@ -4,7 +4,9 @@ import { handleActions } from '../utils/redux'
 import { toAmount, format } from '../utils/dinero'
 import useForex from '../hooks/forex'
 import { usePocket } from '../hooks/pockets'
-import { CURRENCIES } from '../constants'
+import { InputLine, OutputLine } from './ExchangeInput'
+import FlipButton from './FlipButton'
+import Button from './Button'
 
 const useFormState = initialState => {
   const [state, setter] = useState(initialState)
@@ -15,16 +17,6 @@ const useFormState = initialState => {
 
   return [state, handler]
 }
-
-const CurrencySelector = ({ except, ...props }) => (
-  <select {...props}>
-    {CURRENCIES.filter(value => value !== except).map(value => (
-      <option value={value} key={value}>
-        {value}
-      </option>
-    ))}
-  </select>
-)
 
 const reducer = handleActions({
   focus: (state, { source }) => {
@@ -102,24 +94,22 @@ const ExchangeForm = ({ initialAmount = 10 }) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div style={{ display: 'flex' }}>
-        <CurrencySelector value={from} onChange={setFrom} except={to} />
-        <input {...forms.input} pattern='\d{1,}(\.\d{2})?' />
-        <small>balance: {format(available)}</small>
-      </div>
-      <br />
-      <button onClick={flip} type='button'>
-        FLIP
-      </button>
-      <br />
-      <div style={{ display: 'flex' }}>
-        <CurrencySelector value={to} onChange={setTo} except={from} />
-        <input {...forms.output} pattern='\d{1,}(\.\d{2})?' />
-      </div>
-      <br />
-      <button type='submit' disabled={!enabled}>
+      <InputLine
+        currency={from}
+        setCurrency={setFrom}
+        exclude={[to]}
+        form={forms.input}
+      />
+      <FlipButton.Absolute rate={rate} onClick={flip} />
+      <OutputLine
+        currency={to}
+        setCurrency={setTo}
+        exclude={[from]}
+        form={forms.output}
+      />
+      <Button type='submit' disabled={!enabled}>
         {overdraft ? 'OVERDRAFT!' : 'exchange'}
-      </button>
+      </Button>
     </form>
   )
 }

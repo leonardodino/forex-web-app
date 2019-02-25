@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { fg, base, invert } from '../utils/theme'
+import Container from './Container'
 
 const gap = '0.375rem'
 const border = '1px solid'
@@ -9,6 +10,7 @@ const fontSize = '0.75rem'
 const Wrapper = styled.button`
   ${base}
   appearance: none;
+  cursor: pointer;
   font-family: inherit;
   padding: 0 ${gap};
   display: flex;
@@ -51,12 +53,25 @@ const Rate = styled.div`
   flex: 0 0 auto;
 `
 
-const FlipButton = ({ rate, ...props }) =>
-  typeof rate === 'number' && (
+const FlipButton = invert(({ rate, ...props }) => {
+  if (typeof rate !== 'number') return null
+  return (
     <Wrapper type='button' {...props}>
       <StyledIcon />
       <Rate>{rate}</Rate>
     </Wrapper>
   )
+})
 
-export default invert(FlipButton)
+const AbsoluteButton = styled(FlipButton)`
+  position: absolute;
+  transform: translate(-2px, -50%);
+`
+
+FlipButton.Absolute = ({ className, style, ...props }) => (
+  <Container className={className} style={style}>
+    <AbsoluteButton {...props} />
+  </Container>
+)
+
+export default FlipButton
