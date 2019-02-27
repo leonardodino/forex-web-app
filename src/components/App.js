@@ -6,6 +6,7 @@ import { Provider as ForexProvider } from '../hooks/forex'
 import { Provider as PocketsProvider } from '../hooks/pockets'
 import NavBar from './NavBar'
 import Routes from './Routes'
+import Footer from './Footer'
 
 const enhance = wrapIn(
   ThemeProvider,
@@ -20,6 +21,7 @@ const App = () => {
     <Fragment>
       <NavBar />
       <Routes />
+      <Footer />
     </Fragment>
   )
 }
