@@ -17,6 +17,25 @@ body {
   justify-content: stretch;
 }
 
+#root::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgb(var(--bg-rgb));
+  opacity: 0;
+  pointer-events: none;
+  display: block;
+  z-index: 1;
+  transition: opacity 0.25s ease;
+}
+
+#root.offline::after {
+  opacity: 0.5;
+}
+
 ::selection {
   background: rgba(var(--fg-rgb), 0.99);
   color: rgba(var(--bg-rgb), 0.99);

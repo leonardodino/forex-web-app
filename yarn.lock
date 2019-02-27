@@ -852,6 +852,11 @@
   resolved "https://registry.yarnpkg.com/@nodelib/fs.stat/-/fs.stat-1.1.3.tgz#2b5a3ab3f918cca48a8c754c08168e3f03eba61b"
   integrity sha512-shAmDyaQC4H92APFoIaVDHCx5bStIocgvbwQyxPRrbUY20V1EYTbSDchWbuwlMG3V17cprZhA6+78JfB+3DTPw==
 
+"@rehooks/online-status@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@rehooks/online-status/-/online-status-1.0.0.tgz#f071b4ad4136924aac16880916a6d62893667987"
+  integrity sha512-G2cfuXPt3zp+c2ps3T/E9Eh3lcRfBgEEP7QWxpV/qnC7McFCx8M8qmbxy/pOzgTXt7QAjrO4c0A1WpRbdQqRzA==
+
 "@samverschueren/stream-to-observable@^0.3.0":
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/@samverschueren/stream-to-observable/-/stream-to-observable-0.3.0.tgz#ecdf48d532c58ea477acfcab80348424f8d0662f"

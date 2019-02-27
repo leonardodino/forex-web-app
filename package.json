@@ -10,6 +10,7 @@
     "test": "react-scripts test"
   },
   "dependencies": {
+    "@rehooks/online-status": "^1.0.0",
     "dinero.js": "^1.5.0",
     "minireset.css": "^0.0.4",
     "react": "^16.8.2",
