@@ -32,14 +32,10 @@ const Input = styled.input`
   flex: 0 1 autos;
 `
 
-export const InputLine = ({ currency, setCurrency, exclude, form }) => (
+export const InputLine = ({ currency, setCurrency, form }) => (
   <Wrapper>
     <StyledContainer>
-      <CurrencySelector
-        value={currency}
-        onChange={setCurrency}
-        exclude={exclude}
-      />
+      <CurrencySelector value={currency} onChange={setCurrency} />
       <Input {...form} pattern='\d{1,}(\.\d{2})?' />
     </StyledContainer>
   </Wrapper>

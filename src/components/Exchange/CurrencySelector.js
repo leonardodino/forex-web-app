@@ -1,17 +1,12 @@
 import React from 'react'
-import { CURRENCIES as C } from '../../constants'
+import { CURRENCIES } from '../../constants'
 import Select from '../Select'
 
-const CurrencySelector = ({ currencies = C, exclude = [], ...props }) => (
+const CurrencySelector = ({ currencies = CURRENCIES, ...props }) => (
   <Select {...props}>
-    {currencies.map(currency => {
-      if (exclude.includes(currency)) return null
-      return (
-        <option key={currency} value={currency}>
-          {currency}
-        </option>
-      )
-    })}
+    {currencies.map(currency => (
+      <option key={currency} value={currency} children={currency} />
+    ))}
   </Select>
 )
 
