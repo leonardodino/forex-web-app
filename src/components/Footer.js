@@ -25,7 +25,8 @@ const Link = ({ to, children, className, style, target }) => {
   const href = (to || {}).pathname || (typeof to === 'string' ? to : '/')
   const props = { className, style, children, target }
   if (/^[./]/.test(href)) return <RouterLink {...props} to={to} />
-  return <a {...props} href={href} target='_blank' rel='noopener noreferrer' />
+  const other = { target: '_blank', rel: 'noopener noreferrer' }
+  return <a {...props} {...other} href={href} children={children} />
 }
 
 const Wrapper = styled.div`
