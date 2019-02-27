@@ -59,6 +59,30 @@ const useForexForm = (initialValue, rate = 0) => {
   return [state.input, reset, forms]
 }
 
+const usePrevious = value => {
+  const ref = useRef()
+  useEffect(() => {
+    ref.current = value
+  })
+  return ref.current
+}
+
+const selectRef = ({ current } = {}) => {
+  if (!current) return
+  current.focus()
+  current.select()
+}
+
+const useFocus = ({ input, output }, { from, to }) => {
+  const previousFrom = usePrevious(from)
+  const previousTo = usePrevious(to)
+
+  useEffect(() => {
+    if (previousFrom !== from) return selectRef(input.ref)
+    if (previousTo !== to) return selectRef(output.ref)
+  }, [from, to])
+}
+
 const ExchangeForm = props => {
   const { initialAmount = 0, from, setFrom, to, setTo } = props
   const [rate, { online, error }] = useForex(from, to)
@@ -66,6 +90,8 @@ const ExchangeForm = props => {
   const [available, { exchange }] = usePocket(from)
   const overdraft = requested.getAmount() > available.getAmount()
   const enabled = online && !error && !overdraft && requested.getAmount() > 0
+
+  useFocus(forms, props)
 
   const handleSubmit = event => {
     event.preventDefault()
