@@ -52,8 +52,8 @@ export const base = ({ theme }) => `
 `
 
 const GlobalStyle = createGlobalStyle`
-  :root, body { ${base} height: 100%; }
-  :root { background: ${fg}; }
+  :root, body, #root { ${base} height: 100%; }
+  :root, body { background: ${fg}; }
 `
 
 export const StyleProvider = ({ children }) => (

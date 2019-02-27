@@ -15,7 +15,7 @@ const Wrapper = styled.div`
 
 const Row = styled.div`
   margin: 0 -1rem;
-  overflow: scroll hidden;
+  overflow: scroll;
   display: flex;
   flex-wrap: no-wrap;
   /* prettier-ignore */
