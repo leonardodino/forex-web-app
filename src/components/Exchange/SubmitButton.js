@@ -6,7 +6,7 @@ import Container from '../Container'
 const Wrapper = styled.button`
   ${base}
   ${focus}
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.5rem
   appearance: none;
   display: block;
   width: 100%;
@@ -15,6 +15,7 @@ const Wrapper = styled.button`
   border: solid ${fg};
   border-width: 1px 0;
   border-radius: 0;
+  padding: calc(0.25rem - 1px) 0;
   cursor: ${p => (p.disabled ? 'default' : 'pointer')};
 `
 

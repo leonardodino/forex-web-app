@@ -4,12 +4,12 @@ import { fg, base, Invert } from '../../utils/theme'
 import { format } from '../../utils/dinero'
 import { useCurrencyForex } from '../../hooks/forex'
 
-const Wrapper = styled.div`
-  display: inline-block;
+const padding = `calc(1rem - 0.5px) calc(0.5rem - 1px)`
+
+export const Wrapper = styled.div`
   overflow: hidden;
   border-radius: 0.25rem;
   border: 1px solid ${fg};
-  margin: 0.75rem;
 `
 
 const Flex = styled.div`
@@ -24,31 +24,31 @@ const Currency = styled.h3`
   font-size: 1rem;
   line-height: 1.5rem;
   font-weight: 600;
-  padding: 0.75rem 0.5rem;
+  padding: ${padding};
 `
 
 const Amount = styled.div`
   font-weight: 400;
   font-size: 1.5rem;
   line-height: 1.5rem;
-  padding: 0.75rem 0.5rem;
+  padding: ${padding};
   letter-spacing: -0.025rem;
 `
 
 const ForexWrapper = styled(Flex)`
   & + & {
-    border-left: 1px solid ${fg};
+    box-shadow: -1px 0 0 ${fg};
   }
 `
 
 const ForexCurrency = styled.div`
-  margin: 0.75rem 0.5rem;
+  padding: ${padding};
   font-size: 0.75rem;
   line-height: 1rem;
   font-weight: 600;
 `
 const ForexRate = styled.div`
-  margin: 0.75rem 0.5rem;
+  padding: ${padding};
   font-size: 0.875rem;
   line-height: 1rem;
 `

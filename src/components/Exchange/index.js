@@ -3,7 +3,9 @@ import { invert } from '../../utils/theme'
 import SectionHeader from '../SectionHeader'
 import ExchangeForm from './Form'
 
-const defaultTitle = () => <SectionHeader>Forex Web App</SectionHeader>
+const defaultTitle = () => (
+  <SectionHeader paddingBottom={0}>Forex Web App</SectionHeader>
+)
 
 const Exchange = ({ renderTitle = defaultTitle }) => (
   <Fragment>

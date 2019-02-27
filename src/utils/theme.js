@@ -49,7 +49,11 @@ export const base = ({ theme }) => `
   color: ${fg({ theme })};
 `
 
-const GlobalStyle = createGlobalStyle`:root{ ${base} }`
+const GlobalStyle = createGlobalStyle`
+  :root, body { ${base} height: 100%; }
+  :root { background: ${fg}; }
+`
+
 export const StyleProvider = ({ children }) => (
   <Fragment>
     <GlobalStyle />
