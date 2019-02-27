@@ -6,6 +6,7 @@ const theme = {
   bg: 'white',
   fg: 'black',
   focus: '#119dff',
+  borderRadius: '0.25rem',
   invert: ({ bg, fg, ...rest }) => ({ bg: fg, fg: bg, ...rest }),
 }
 
@@ -40,6 +41,7 @@ export const invert = Component => {
 
 const rgbTuple = c => ({ black: '0,0,0', white: '255,255,255' }[c])
 
+export const borderRadius = ({ theme }) => theme.borderRadius
 export const bg = ({ theme }) => theme.bg
 export const fg = ({ theme }) => theme.fg
 export const base = ({ theme }) => `

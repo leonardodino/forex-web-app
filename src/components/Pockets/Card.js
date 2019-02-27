@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components/macro'
-import { fg, base, Invert } from '../../utils/theme'
+import { Invert, fg, base, borderRadius } from '../../utils/theme'
 import { format } from '../../utils/dinero'
 import { useCurrencyForex } from '../../hooks/forex'
 
@@ -8,7 +8,7 @@ const padding = `calc(1rem - 0.5px) calc(0.5rem - 1px)`
 
 export const Wrapper = styled.div`
   overflow: hidden;
-  border-radius: 0.25rem;
+  border-radius: ${borderRadius};
   border: 1px solid ${fg};
 `
 

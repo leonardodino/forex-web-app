@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components/macro'
-import { base, focus } from '../utils/theme'
+import { base, focus, borderRadius } from '../utils/theme'
 
 const Wrapper = styled.label`
   ${base}
@@ -11,7 +11,7 @@ const Wrapper = styled.label`
   position: relative;
   overflow: hidden;
   line-height: 1.5rem;
-  border-radius: 0.25rem;
+  border-radius: ${borderRadius};
   padding: 0 0.5rem;
   margin-left: -0.5rem;
   flex: 0 0 auto;

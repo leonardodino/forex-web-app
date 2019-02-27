@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components/macro'
-import { invert, base } from '../../utils/theme'
+import { invert, base, borderRadius } from '../../utils/theme'
 import Container from '../Container'
 import CurrencySelector from './CurrencySelector'
 
@@ -23,7 +23,7 @@ const Input = styled.input`
   padding: 0;
   text-align: right;
   border: 0px solid transparent;
-  border-radius: 0.25rem;
+  border-radius: ${borderRadius};
   font-size: 2rem;
   line-height: 2rem;
   font-weight: 500;
