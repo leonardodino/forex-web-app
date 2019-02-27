@@ -1,13 +1,13 @@
 import React from 'react'
 import styled from 'styled-components/macro'
-import { Invert, fg, base, borderRadius } from '../../utils/theme'
+import { Link } from 'react-router-dom'
+import { Invert, fg, base, focus, borderRadius } from '../../utils/theme'
 import { format } from '../../utils/dinero'
 import { useCurrencyForex } from '../../hooks/forex'
 
 const padding = `calc(1rem - 0.5px) calc(0.5rem - 1px)`
 
 export const Wrapper = styled.div`
-  overflow: hidden;
   border-radius: ${borderRadius};
   border: 1px solid ${fg};
 `
@@ -35,9 +35,32 @@ const Amount = styled.div`
   letter-spacing: -0.025rem;
 `
 
+const ForexGroup = styled(Flex)`
+  border-bottom-left-radius: ${borderRadius};
+  border-bottom-right-radius: ${borderRadius};
+`
+
 const ForexWrapper = styled(Flex)`
-  & + & {
-    box-shadow: -1px 0 0 ${fg};
+  ${focus}
+  text-decoration: none;
+  overflow: hidden;
+  position: relative;
+  & + &::before {
+    content: '';
+    position: absolute;
+    width: 1px;
+    height: 100%;
+    background: ${fg};
+    pointer-events: none;
+  }
+  &:first-of-type {
+    border-bottom-left-radius: ${borderRadius};
+  }
+  &:last-of-type {
+    border-bottom-right-radius: ${borderRadius};
+  }
+  &:focus {
+    z-index: 1;
   }
 `
 
@@ -62,9 +85,9 @@ const Header = ({ currency, amount }) => (
   </Invert>
 )
 
-const Forex = ({ currency, rate }) => (
-  <ForexWrapper>
-    <ForexCurrency>{currency}</ForexCurrency>
+const Forex = ({ from, to, rate }) => (
+  <ForexWrapper as={Link} to={`/exchange/${from}x${to}`}>
+    <ForexCurrency>{to}</ForexCurrency>
     <ForexRate>{rate}</ForexRate>
   </ForexWrapper>
 )
@@ -76,11 +99,11 @@ const PocketCard = ({ fund }) => {
     <Wrapper>
       <Header currency={currency} amount={formatted} />
       {!!rates && (
-        <Flex>
-          {Object.entries(rates).map(([currency, rate]) => (
-            <Forex key={currency} currency={currency} rate={rate} />
+        <ForexGroup>
+          {Object.entries(rates).map(([to, rate]) => (
+            <Forex key={to} from={currency} to={to} rate={rate} />
           ))}
-        </Flex>
+        </ForexGroup>
       )}
     </Wrapper>
   )
