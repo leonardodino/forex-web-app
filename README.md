@@ -1,76 +1,79 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# :currency_exchange: [forex web app](https://forex.leonardodino.com) <img alt="iphone mockup" height="560" align="right" src="https://user-images.githubusercontent.com/8649362/53637603-5aa6e900-3c02-11e9-8ccf-10e445aa9a59.png"/>
 
-## Credits
+[![Netlify Status](https://api.netlify.com/api/v1/badges/a7700bf8-8021-4750-a84c-625fd9826cb4/deploy-status)](https://app.netlify.com/sites/forex-web-app/deploys)
+[![Build Status](https://travis-ci.com/leonardodino/forex-web-app.svg?branch=master)](https://travis-ci.com/leonardodino/forex-web-app)
+[![Code Coverage](https://badgen.net/codecov/c/github/leonardodino/forex-web-app)](https://codecov.io/gh/leonardodino/forex-web-app)
+[![License](https://badgen.net/github/license/leonardodino/forex-web-app)](https://github.com/leonardodino/forex-web-app/blob/master/LICENSE)
 
-| name      | source                                                                               |
-| --------- | ------------------------------------------------------------------------------------ |
-| `favicon` | [favicon.io](https://favicon.io) feat. [twemoji](https://github.com/twitter/twemoji) |
-| forex api | [cryptocompare.com](https://min-api.cryptocompare.com/)                              |
-| font      | [rsms's Inter Font](https://github.com/rsms/inter)                                   |
+<h1 align="center">:sparkles:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:dollar:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:left_right_arrow:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:euro:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:left_right_arrow:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:pound:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:sparkles:</h1>
 
-## Available Scripts
+**Frontend Development Home Task**: single screen forex web app
 
-In the project directory, you can run:
+<sup>The work was done part-time, between `22/01/2019` and `01/02/2019`.</sup>
 
-### `npm start`
+## Quick Start
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+> Make sure you have all [the system dependencies](#system-dependencies) before proceeding.
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+```bash
+# Make a copy of this project
+$ git clone https://github.com/leonardodino/forex-web-app
+$ cd forex-web-app
 
-### `npm test`
+# Install projecr dependencies
+$ yarn
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+# Development server
+$ yarn start # Opens browser at http://localhost:3000
 
-### `npm run build`
+# Development test watcher
+$ yarn test --coverage
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+# Production build
+$ yarn build      # Outputs to ./build directory
+$ npx serve build # Static server for the built website
+```
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+For details more about these scripts, refer to the [Create React App docs](https://facebook.github.io/create-react-app/docs/getting-started).
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Features
 
-### `npm run eject`
+- [x] :alembic: react hooks + context
+- [x] :art: 8pt grid + simple design
+- [x] :musical_keyboard: keyboard accessible
+- [x] :shower: no media queries
+- [x] :100: interactive <sub><sup>(rates updates don't mess with user input)</sup></sub>
+- [x] :electric_plug: service worker + offline state
+- [x] :robot: decently tested
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Dependencies / Services / Assets
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+| name                                                              | license                                                                                                                                                        | description                                           |
+| ----------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------- |
+| [`react`](https://reactjs.org/)                                   | [![License](https://badgen.net/github/license/facebook/react/)](https://api.github.com/repos/facebook/react/license)                                           | declarative, component-based, library for building ui |
+| [`react-router`](https://github.com/ReactTraining/react-router)   | [![License](https://badgen.net/github/license/ReactTraining/react-router/)](https://api.github.com/repos/ReactTraining/react-router/license)                   | declarative routing for react                         |
+| [`create-react-app`](https://facebook.github.io/create-react-app) | [![License](https://badgen.net/github/license/facebook/create-react-app/)](https://api.github.com/repos/facebook/create-react-app/license)                     | create react apps with no build configuration         |
+| [`styled-components`](https://styled-components.com/)             | [![License](https://badgen.net/github/license/styled-components/styled-components/)](https://api.github.com/repos/styled-components/styled-components/license) | `css-in-js`: visual primitives for the component age  |
+| [`dinero.js`](https://sarahdayan.github.io/dinero.js)             | [![License](https://badgen.net/github/license/sarahdayan/dinero.js/)](https://api.github.com/repos/sarahdayan/dinero.js/license)                               | immutable utils to create, calculate and format money |
+| [`@rehooks/online-status`](https://rehooks.com/#more)             | [![License](https://badgen.net/github/license/rehooks/online-status/)](https://api.github.com/repos/rehooks/online-status/license)                             | react hook for online status                          |
+| [`use-interval`](https://github.com/Hermanya/use-interval)        | [![License](https://badgen.net/github/license/Hermanya/use-interval/)](https://api.github.com/repos/Hermanya/use-interval/license)                             | react hook for setting an interval                    |
+| [`react-testing-library`](https://testing-library.com/react)      | [![License](https://badgen.net/github/license/kentcdodds/react-testing-library/)](https://api.github.com/repos/kentcdodds/react-testing-library/license)       | utilities that encourage good testing practices       |
+| [`jest`](https://jestjs.io/)                                      | [![License](https://badgen.net/badge/license/MIT/blue)](https://api.github.com/repos/facebook/jest/license)                                                    | delightful javascript testing                         |
+| [Inter](https://rsms.me/inter/)                                   | [![License](https://badgen.net/github/license/rsms/inter/)](https://api.github.com/repos/rsms/inter/license)                                                   | typeface designed for computer screens                |
+| [Crypto Compare API](https://min-api.cryptocompare.com/)          | [![License](https://badgen.net/badge/license/CC%20BY-NC/blue)](https://min-api.cryptocompare.com/faq)                                                          | free forex api, updates every 10 seconds              |
+| [iPhone Mockup](http://www.designbolts.com/download/56032/)       | [![License](https://badgen.net/badge/license/link%20back/purple)](http://www.designbolts.com/2017/09/14/free-vector-apple-iphone-8-mockup-ai-eps/)             | free vector apple iphone 8 mockup ai & eps            |
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+<sup>> special thanks to [GitHub](https://github.com), [Netlify](https://netlify.com), [NPM](https://npmjs.com), [Travis CI](https://travis-ci.com), and [CodeCov](https://codecov.io) for supporting open-source projects with free tiers (: </sup>
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### System Dependencies
 
-## Learn More
+| name     | minimum version |
+| :------- | --------------: |
+| **git**  |         `2.0.0` |
+| **bash** |         `3.0.0` |
+| **node** |         `8.0.0` |
+| **yarn** |         `1.0.0` |
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### License
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+[MIT](LICENSE)

@@ -1,0 +1,9 @@
+language: node_js
+node_js: 10
+notifications: { email: false }
+cache: yarn
+script:
+  - yarn lint
+  - yarn test --coverage
+  - yarn build
+  - npx codecov@2
