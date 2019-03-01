@@ -1,8 +1,8 @@
 import React from 'react'
 import { fireEvent, cleanup } from 'react-testing-library'
-import renderWithRouter from '../test-utils/render-with-router'
-import wrapInProviders from '../test-utils/wrap-in-providers'
-import getElements from '../test-utils/get-elements'
+import renderWithRouter from 'test-utils/render-with-router'
+import wrapInProviders from 'test-utils/wrap-in-providers'
+import getElements from 'test-utils/get-elements'
 import BareRoutes from './Routes'
 
 const Routes = wrapInProviders(BareRoutes)

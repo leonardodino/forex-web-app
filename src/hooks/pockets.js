@@ -1,8 +1,8 @@
 import React, { createContext, useContext, useReducer } from 'react'
 import Dinero from 'dinero.js'
-import { toAmount } from '../utils/dinero'
-import { createAction, handleActions, bind } from '../utils/redux'
-import { CURRENCIES, INITIAL_FUNDS } from '../constants'
+import { toAmount } from 'utils/dinero'
+import { createAction, handleActions, bind } from 'utils/redux'
+import { CURRENCIES, INITIAL_FUNDS } from 'app-constants'
 
 const init = ({ currencies, amount = toAmount(INITIAL_FUNDS) }) =>
   currencies.reduce(

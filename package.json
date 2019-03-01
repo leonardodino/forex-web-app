@@ -5,9 +5,9 @@
   "scripts": {
     "format": "prettier --write '**.{js,json,css,md}' --ignore-path .gitignore",
     "check": "prettier --check '**.{js,json,css,md}' --ignore-path .gitignore",
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test"
+    "start": "NODE_PATH=src react-scripts start",
+    "build": "NODE_PATH=src react-scripts build",
+    "test": "NODE_PATH=src react-scripts test"
   },
   "dependencies": {
     "@rehooks/online-status": "^1.0.0",

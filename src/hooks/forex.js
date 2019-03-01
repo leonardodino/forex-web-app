@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState } from 'react'
 import useInterval from 'use-interval'
-import fetchRates from '../api/fetch-rates'
-import { INTERVAL, CURRENCIES } from '../constants'
+import fetchRates from 'api/fetch-rates'
+import { INTERVAL, CURRENCIES } from 'app-constants'
 
 const useForexInterval = fn => useInterval(fn, INTERVAL, true)
 

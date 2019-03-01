@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 import { Switch, Route, Redirect } from 'react-router-dom'
-import { CURRENCIES } from '../constants'
+import { CURRENCIES } from 'app-constants'
 import Exchange from './Exchange'
 import Pockets from './Pockets'
 import ErrorPage from './ErrorPage'

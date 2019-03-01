@@ -1,5 +1,5 @@
-import { INTERVAL, API_URL } from '../constants'
-import fetch from '../utils/fetch-with-timeout'
+import { INTERVAL, API_URL } from 'app-constants'
+import fetch from 'utils/fetch-with-timeout'
 
 const merger = (acc, [input, rates]) => {
   Object.entries(rates).forEach(([output, rate]) => {

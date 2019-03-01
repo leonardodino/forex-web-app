@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components/macro'
-import { base } from '../utils/theme'
+import { base } from 'utils/theme'
 import Container from './Container'
 
 const Wrapper = styled.header`

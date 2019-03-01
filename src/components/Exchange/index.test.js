@@ -1,8 +1,8 @@
 import React from 'react'
 import { render, fireEvent, cleanup, act } from 'react-testing-library'
-import wrapInProviders from '../../test-utils/wrap-in-providers'
+import wrapInProviders from 'test-utils/wrap-in-providers'
 import Exchange from './index'
-import { getExchange } from '../../test-utils/get-elements'
+import { getExchange } from 'test-utils/get-elements'
 
 const WrappedExchange = wrapInProviders(Exchange)
 

@@ -1,9 +1,9 @@
 import React from 'react'
 import styled from 'styled-components/macro'
 import { Link } from 'react-router-dom'
-import { Invert, fg, base, focus, borderRadius } from '../../utils/theme'
-import { format } from '../../utils/dinero'
-import { useCurrencyForex } from '../../hooks/forex'
+import { Invert, fg, base, focus, borderRadius } from 'utils/theme'
+import { format } from 'utils/dinero'
+import { useCurrencyForex } from 'hooks/forex'
 
 const padding = `calc(1rem - 0.5px) calc(0.5rem - 1px)`
 

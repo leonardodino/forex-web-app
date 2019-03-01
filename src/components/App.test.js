@@ -1,9 +1,9 @@
 import React from 'react'
 import { fireEvent, cleanup, act } from 'react-testing-library'
-import renderWithRouter from '../test-utils/render-with-router'
-import wrapInProviders from '../test-utils/wrap-in-providers'
-import getElements from '../test-utils/get-elements'
-import fetchRates from '../api/fetch-rates'
+import renderWithRouter from 'test-utils/render-with-router'
+import wrapInProviders from 'test-utils/wrap-in-providers'
+import getElements from 'test-utils/get-elements'
+import fetchRates from 'api/fetch-rates'
 import { BareApp } from './App'
 
 const getFloatValue = string => parseFloat(string.replace(/[^\d.]+/g, ''))

@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
 import styled from 'styled-components/macro'
 import useOnlineStatus from '@rehooks/online-status'
-import { invert, fg, borderRadius } from '../utils/theme'
-import { useForexState } from '../hooks/forex'
+import { invert, fg, borderRadius } from 'utils/theme'
+import { useForexState } from 'hooks/forex'
 import SectionHeader from './SectionHeader'
 
 const Flex = styled.div`

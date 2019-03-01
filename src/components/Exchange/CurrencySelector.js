@@ -1,5 +1,5 @@
 import React from 'react'
-import { CURRENCIES } from '../../constants'
+import { CURRENCIES } from 'app-constants'
 import Select from '../Select'
 
 const CurrencySelector = ({ currencies = CURRENCIES, ...props }) => (
