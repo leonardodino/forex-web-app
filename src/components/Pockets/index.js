@@ -6,8 +6,6 @@ import Container from '../Container'
 import SectionHeader from '../SectionHeader'
 import PocketCard, { Wrapper as CardWrapper } from './Card'
 
-const defaultTitle = () => <SectionHeader>Pockets</SectionHeader>
-
 const Wrapper = styled.div`
   ${base}
   padding-top: 2rem;
@@ -38,11 +36,11 @@ const Row = styled.div`
   }
 `
 
-const Pockets = ({ renderTitle = defaultTitle }) => {
+const Pockets = props => {
   const [funds] = usePockets()
   return (
-    <Wrapper>
-      {renderTitle && renderTitle()}
+    <Wrapper {...props}>
+      <SectionHeader>Pockets</SectionHeader>
       <Container>
         <Row>
           {Object.entries(funds).map(([currency, fund]) => (
@@ -52,6 +50,10 @@ const Pockets = ({ renderTitle = defaultTitle }) => {
       </Container>
     </Wrapper>
   )
+}
+
+/* istanbul ignore else */ if (process.env.NODE_ENV !== 'production') {
+  Pockets.defaultProps = { 'data-testid': 'Pockets' }
 }
 
 export default Pockets

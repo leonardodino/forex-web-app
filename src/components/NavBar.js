@@ -27,7 +27,8 @@ const NavBar = () => {
   const { online: forexOnline } = useForexState()
   const online = browserOnline && forexOnline
   useEffect(() => {
-    $root.classList[online ? 'remove' : 'add']('offline')
+    /* istanbul ignore if */
+    if ($root) return $root.classList[online ? 'remove' : 'add']('offline')
   }, [online])
   return (
     <SectionHeader paddingBottom={0}>

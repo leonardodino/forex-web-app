@@ -5,7 +5,7 @@ import { INTERVAL, CURRENCIES } from '../constants'
 
 const useForexInterval = fn => useInterval(fn, INTERVAL, true)
 
-const createForex = (currencies = []) => {
+const createForex = currencies => {
   const ForexContext = createContext({})
 
   const useForex = (inputCurrency, outputCurrency) => {
@@ -30,15 +30,12 @@ const createForex = (currencies = []) => {
 
   const Provider = ({ children }) => {
     const [state, setState] = useState({ online: false, updated: -Infinity })
-    useForexInterval(async () => {
-      try {
-        const rates = await fetchRates(currencies)
-        const updated = Date.now()
-        setState({ ...rates, online: true, updated })
-      } catch (error) {
-        console.log(error)
-        setState({ ...state, online: false, error })
-      }
+    // had to replace async / await, it was breaking react tests
+    useForexInterval(() => {
+      fetchRates(currencies).then(
+        rates => setState({ ...rates, online: true, updated: Date.now() }),
+        error => setState({ ...state, online: !!console.log(error), error }),
+      )
     })
 
     return (

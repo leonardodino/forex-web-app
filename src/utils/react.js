@@ -18,7 +18,7 @@ export const wrapIn = (...Providers) => {
         createElement(Component, props, children),
       )
 
-    if (process.env.NODE_ENV !== 'production') {
+    /* istanbul ignore else */ if (process.env.NODE_ENV !== 'production') {
       const providerNames = Providers.map(getDisplayName).join(', ')
       const displayName = getDisplayName(Component)
       WrapIn.displayName = `wrapIn(${providerNames})(${displayName})`

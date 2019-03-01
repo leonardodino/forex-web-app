@@ -64,6 +64,10 @@ const FlipButton = ({ rate, ...props }) => {
   )
 }
 
+/* istanbul ignore else */ if (process.env.NODE_ENV !== 'production') {
+  FlipButton.defaultProps = { 'data-testid': 'FlipButton' }
+}
+
 const AbsoluteButton = styled(FlipButton)`
   position: absolute;
   transform: translate(-2px, -50%);

@@ -7,7 +7,7 @@ const mapValues = fn => obj =>
     {},
   )
 
-export const handleActions = (reducerMap = {}, initialState = {}, options) =>
+export const handleActions = (reducerMap, initialState = {}, options) =>
   originalHandle(reducerMap, initialState, options)
 
 export const bindActionCreators = (actionCreators, dispatch) =>

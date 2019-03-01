@@ -1,4 +1,5 @@
 import React, { useReducer, useEffect, useRef } from 'react'
+import useOnlineStatus from '@rehooks/online-status'
 import Dinero from 'dinero.js'
 import { invert } from '../../utils/theme'
 import { handleActions } from '../../utils/redux'
@@ -84,17 +85,20 @@ const useFocus = ({ input, output }, { from, to }) => {
 }
 
 const ExchangeForm = props => {
-  const { initialAmount = 0, from, setFrom, to, setTo } = props
-  const [rate, { online, error }] = useForex(from, to)
+  const { initialAmount = 0, from, setFrom, to, setTo, ...other } = props
+  const browserOnline = useOnlineStatus()
+  const [rate, { online: forexOnline, error }] = useForex(from, to)
   const [requested, reset, forms] = useForexForm(initialAmount, rate)
   const [available, { exchange }] = usePocket(from)
   const overdraft = requested.getAmount() > available.getAmount()
+  const online = browserOnline && forexOnline
   const enabled = online && !error && !overdraft && requested.getAmount() > 0
 
   useFocus(forms, props)
 
   const handleSubmit = event => {
     event.preventDefault()
+    if (!enabled) return
     const amount = Dinero({ amount: requested.getAmount(), currency: from })
     exchange({ to, amount, rate })
     reset()
@@ -102,14 +106,13 @@ const ExchangeForm = props => {
 
   const flip = event => {
     event.preventDefault()
-    event.stopPropagation()
     const current = { to, from }
     setTo(current.from)
     setFrom(current.to)
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form {...other} onSubmit={handleSubmit}>
       <InputLine currency={from} setCurrency={setFrom} form={forms.input} />
       <FlipButton.Absolute rate={rate} onClick={flip} />
       <OutputLine currency={to} setCurrency={setTo} form={forms.output} />
@@ -118,6 +121,10 @@ const ExchangeForm = props => {
       </Button>
     </form>
   )
+}
+
+/* istanbul ignore else */ if (process.env.NODE_ENV !== 'production') {
+  ExchangeForm.defaultProps = { 'data-testid': 'ExchangeForm' }
 }
 
 export default invert(ExchangeForm)

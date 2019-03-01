@@ -12,30 +12,22 @@ const theme = {
 
 export const Provider = props => <ThemeProvider {...props} theme={theme} />
 
-export const Invert = ({ children, invert = true }) => {
-  if (!invert) return children
-  return (
-    <ThemeProvider theme={theme => theme.invert(theme)}>
-      {children}
-    </ThemeProvider>
-  )
-}
+export const Invert = ({ children }) => (
+  <ThemeProvider theme={theme => theme.invert(theme)}>{children}</ThemeProvider>
+)
 
 // optimize chained calls, returns original component
-const wrapped = Symbol('wrapped')
 export const invert = Component => {
-  if (Component[wrapped]) return Component[wrapped]
   const Inverted = forwardRef((props, ref) => (
     <Invert>
       <Component {...props} ref={ref} />
     </Invert>
   ))
 
-  if (process.env.NODE_ENV !== 'production') {
+  /* istanbul ignore else */ if (process.env.NODE_ENV !== 'production') {
     Inverted.displayName = wrapDisplayName('invert', Component)
   }
 
-  Inverted[wrapped] = Component
   return Inverted
 }
 

@@ -1,6 +1,5 @@
 import React from 'react'
 import styled from 'styled-components/macro'
-import { Link as RouterLink } from 'react-router-dom'
 import { base, focus, borderRadius } from '../utils/theme'
 import Container from './Container'
 
@@ -22,11 +21,9 @@ const GitHubIcon = ({ size = 24, color = 'currentColor', style, ...props }) => (
 )
 
 const Link = ({ to, children, className, style, target }) => {
-  const href = (to || {}).pathname || (typeof to === 'string' ? to : '/')
   const props = { className, style, children, target }
-  if (/^[./]/.test(href)) return <RouterLink {...props} to={to} />
   const other = { target: '_blank', rel: 'noopener noreferrer' }
-  return <a {...props} {...other} href={href} children={children} />
+  return <a {...props} {...other} href={to} children={children} />
 }
 
 const Wrapper = styled.div`

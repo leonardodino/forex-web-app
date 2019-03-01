@@ -27,3 +27,4 @@ const App = () => {
 }
 
 export default enhance(App)
+export { App as BareApp }

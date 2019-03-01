@@ -26,7 +26,7 @@ const reducer = handleActions({
 })
 
 const noop = () => {}
-const createPockets = (currencies = []) => {
+const createPockets = currencies => {
   const FundsContext = createContext({})
   const DispatchContext = createContext(noop)
 

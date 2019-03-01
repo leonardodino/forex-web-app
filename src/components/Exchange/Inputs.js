@@ -58,8 +58,8 @@ const Transparent = styled.span`
   user-select: none;
 `
 
-const InputLine = ({ currency, setCurrency, prefix, form }) => (
-  <Wrapper>
+const InputLine = ({ currency, setCurrency, prefix, form, ...props }) => (
+  <Wrapper {...props}>
     <StyledContainer>
       <CurrencySelector value={currency} onChange={setCurrency} />
       <InputFormatter {...form}>
@@ -82,3 +82,8 @@ const OutputLine = invert(InputLine)
 OutputLine.defaultProps = { prefix: '+' }
 
 export { InputLine, OutputLine }
+
+/* istanbul ignore else */ if (process.env.NODE_ENV !== 'production') {
+  InputLine.defaultProps['data-testid'] = 'InputLine'
+  OutputLine.defaultProps['data-testid'] = 'OutputLine'
+}

@@ -76,14 +76,18 @@ const ForexRate = styled.div`
   line-height: 1rem;
 `
 
-const Header = ({ currency, amount }) => (
+const Header = ({ currency, amount, ...props }) => (
   <Invert>
-    <Flex>
+    <Flex {...props}>
       <Currency>{currency}</Currency>
       <Amount>{amount}</Amount>
     </Flex>
   </Invert>
 )
+
+/* istanbul ignore else */ if (process.env.NODE_ENV !== 'production') {
+  Header.defaultProps = { 'data-testid': 'PocketCardHeader' }
+}
 
 const Forex = ({ from, to, rate }) => (
   <ForexWrapper as={Link} to={`/exchange/${from}x${to}`}>
@@ -92,11 +96,14 @@ const Forex = ({ from, to, rate }) => (
   </ForexWrapper>
 )
 
-const PocketCard = ({ fund }) => {
+const PocketCard = ({ fund, ...props }) => {
   const [formatted, currency] = [format(fund), fund.getCurrency()]
   const { rates } = useCurrencyForex(currency)
+  /* istanbul ignore else */ if (process.env.NODE_ENV !== 'production') {
+    props['data-testid'] = props['data-testid'] || `PocketCard-${currency}`
+  }
   return (
-    <Wrapper>
+    <Wrapper {...props}>
       <Header currency={currency} amount={formatted} />
       {!!rates && (
         <ForexGroup>
