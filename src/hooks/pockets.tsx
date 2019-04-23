@@ -4,17 +4,30 @@ import { toAmount } from '../utils/dinero'
 import { createAction, handleActions, bind } from '../utils/redux'
 import { CURRENCIES, INITIAL_FUNDS } from '../constants'
 
-const init = ({ currencies, amount = toAmount(INITIAL_FUNDS) }) =>
+type FundsState = { [key: string]: Dinero.Dinero }
+type ExchangePayload = { amount: Dinero.Dinero; to: string; rate: number }
+
+const init = ({
+  currencies,
+  amount = toAmount(INITIAL_FUNDS),
+}: {
+  currencies: string[]
+  amount?: number
+}): FundsState =>
   currencies.reduce(
     (a, currency) => ({ ...a, [currency]: Dinero({ amount, currency }) }),
     {},
   )
 
 // redux actions and reducer
-const actions = { exchange: createAction('EXCHANGE') }
+const actions = { exchange: createAction<ExchangePayload>('EXCHANGE') }
 
-const reducer = handleActions({
-  [actions.exchange]: (state, { payload: { amount, to, rate } }) => {
+// [TODO]: fix action type validation
+type Actions = { [key in keyof typeof actions]: ReturnType<typeof bind>['x'] }
+type Pt<T = Dinero.Dinero> = [T, Actions]
+
+const reducer = handleActions<FundsState, ExchangePayload>({
+  [`${actions.exchange}`]: (state, { payload: { amount, to, rate } }) => {
     const from = amount.getCurrency()
     const converted = amount.multiply(rate).getAmount()
     return {
@@ -26,14 +39,14 @@ const reducer = handleActions({
 })
 
 const noop = () => {}
-const createPockets = currencies => {
-  const FundsContext = createContext({})
+const createPockets = (currencies: string[]) => {
+  const FundsContext = createContext<FundsState>({})
   const DispatchContext = createContext(noop)
 
-  const Provider = ({ children }) => {
+  const Provider: React.FunctionComponent = ({ children }) => {
     const [funds, dispatch] = useReducer(reducer, { currencies }, init)
     return (
-      <DispatchContext.Provider value={dispatch}>
+      <DispatchContext.Provider value={dispatch as () => void}>
         <FundsContext.Provider value={funds}>{children}</FundsContext.Provider>
       </DispatchContext.Provider>
     )
@@ -43,15 +56,15 @@ const createPockets = currencies => {
   const useActions = () => bind(actions, useContext(DispatchContext))
 
   const useFunds = () => useContext(FundsContext)
-  const useFund = currency => useFunds()[currency]
+  const useFund = (currency: string) => useFunds()[currency]
 
-  const usePockets = () => [useFunds(), useActions()]
-  const usePocket = currency => [useFund(currency), useActions()]
+  const usePockets = (): Pt<FundsState> => [useFunds(), useActions()]
+  const usePocket = (currency: string): Pt => [useFund(currency), useActions()]
 
-  return [Provider, { useFund, useFunds, usePocket, usePockets, useActions }]
+  return { Provider, useFund, useFunds, usePocket, usePockets, useActions }
 }
 
-const [Provider, hooks] = createPockets(CURRENCIES)
+const { Provider, ...hooks } = createPockets(CURRENCIES)
 
 const { usePocket, usePockets, useFund, useFunds, useActions } = hooks
 export { usePocket, usePockets, useFund, useFunds, useActions, Provider }

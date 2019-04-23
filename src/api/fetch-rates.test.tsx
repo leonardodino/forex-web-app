@@ -1,12 +1,8 @@
-jest.dontMock('./fetch-rates')
-
-let fetchRates = async () => {}
-beforeAll(async () => {
-  fetchRates = (await import('./fetch-rates')).default
-})
+jest.unmock('./fetch-rates')
+import fetchRates from './fetch-rates'
 
 const currencies = ['GBP', 'EUR', 'USD']
-const validValue = value => isFinite(value)
+
 test('return rates', async () => {
   const result = await fetchRates(currencies)
 
@@ -21,7 +17,8 @@ test('return rates', async () => {
 })
 
 test('throws with less than 2 currencies', async () => {
-  await expect(fetchRates()).rejects.toThrow('less than 2 currencies')
+  const empty: any = undefined
+  await expect(fetchRates(empty)).rejects.toThrow('less than 2 currencies')
   await expect(fetchRates([])).rejects.toThrow('less than 2 currencies')
   await expect(fetchRates(['USD'])).rejects.toThrow('less than 2 currencies')
 })
