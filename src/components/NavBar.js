@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import styled from 'styled-components/macro'
-import useOnlineStatus from '@rehooks/online-status'
 import { invert, fg, borderRadius } from '../utils/theme'
+import useOnlineStatus from '../hooks/online'
 import { useForexState } from '../hooks/forex'
 import SectionHeader from './SectionHeader'
 
