@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components/macro'
+import Dinero from 'dinero.js'
 import { Link } from 'react-router-dom'
 import { Invert, fg, borderRadius } from '../../utils/theme'
 import { base, focus } from '../../utils/style'
@@ -77,7 +78,9 @@ const ForexRate = styled.div`
   line-height: 1rem;
 `
 
-const Header = ({ currency, amount, ...props }) => (
+type HeaderDOMProps = React.ComponentType<typeof Flex>
+type HeaderProps = { currency: string; amount: string } & HeaderDOMProps
+const Header = ({ currency, amount, ...props }: HeaderProps) => (
   <Invert>
     <Flex {...props}>
       <Currency>{currency}</Currency>
@@ -89,16 +92,19 @@ const Header = ({ currency, amount, ...props }) => (
 /* istanbul ignore else */ if (process.env.NODE_ENV !== 'production') {
   Header.defaultProps = { 'data-testid': 'PocketCardHeader' }
 }
-
-const Forex = ({ from, to, rate }) => (
+type ForexProps = { from: string; to: string; rate?: number }
+const Forex = ({ from, to, rate }: ForexProps) => (
   <ForexWrapper as={Link} to={`/exchange/${from}x${to}`}>
     <ForexCurrency>{to}</ForexCurrency>
     <ForexRate>{rate}</ForexRate>
   </ForexWrapper>
 )
-
-const PocketCard = ({ fund, ...props }) => {
-  const [formatted, currency] = [format(fund), fund.getCurrency()]
+type PocketCardDOMProps = React.ComponentProps<typeof Wrapper>
+type TestProps = { ['data-testid']?: string }
+type PocketCardProps = { fund: Dinero.Dinero } & PocketCardDOMProps & TestProps
+const PocketCard = ({ fund, ...props }: PocketCardProps) => {
+  const formatted = format(fund)
+  const currency = fund.getCurrency()
   const { rates } = useCurrencyForex(currency)
   /* istanbul ignore else */ if (process.env.NODE_ENV !== 'production') {
     props['data-testid'] = props['data-testid'] || `PocketCard-${currency}`

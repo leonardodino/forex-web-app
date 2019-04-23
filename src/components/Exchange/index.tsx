@@ -1,5 +1,6 @@
 import React, { useReducer, useEffect, useRef } from 'react'
 import Dinero from 'dinero.js'
+import { Action } from 'redux-actions'
 import { invert } from '../../utils/theme'
 import { handleActions } from '../../utils/redux'
 import { toAmount, format } from '../../utils/dinero'
@@ -10,41 +11,74 @@ import { InputLine, OutputLine } from './Inputs'
 import FlipButton from './FlipButton'
 import Button from './SubmitButton'
 
-const reducer = handleActions({
-  focus: (state, { source }) => {
+type Source = 'input' | 'output'
+type State = {
+  source: Source
+  rate: number
+  input: Dinero.Dinero
+  output: Dinero.Dinero
+}
+
+type SourcePayload = { value: string | number }
+type FocusPayload = { source: Source }
+type ForexPayload = { rate: number }
+type InputPayload = { value: string | number; rate?: number }
+type PayloadTypes = SourcePayload | FocusPayload | ForexPayload | InputPayload
+type ActionTypes = Action<PayloadTypes>
+type Dispatch = React.Dispatch<ActionTypes>
+
+type Reducer = (state: State, action: ActionTypes) => State
+const reducer: Reducer = handleActions<State>({
+  focus: (state, { payload: { source } }: Action<FocusPayload>) => {
     return { ...state, source }
   },
-  input: ({ rate: r }, { value, rate = r }) => {
+  input: (
+    { rate: r },
+    { payload: { value, rate = r } }: Action<InputPayload>,
+  ) => {
     const input = Dinero({ amount: toAmount(value) })
     const output = input.multiply(rate)
     return { source: 'input', rate, input, output }
   },
-  output: ({ rate: r }, { value, rate = r }) => {
+  output: (
+    { rate: r },
+    { payload: { value, rate = r } }: Action<InputPayload>,
+  ) => {
     const output = Dinero({ amount: toAmount(value) })
     const input = output.divide(rate)
     return { source: 'output', rate, input, output }
   },
-  forex: ({ source, [source]: dinero }, { rate }) => {
-    return reducer({ rate }, { type: source, value: format(dinero) })
+  forex: (
+    { source, [source]: dinero },
+    { payload: { rate } }: Action<ForexPayload>,
+  ) => {
+    return reducer({ rate } as State, {
+      type: source,
+      payload: { value: format(dinero) },
+    })
   },
 })
 
-const init = ({ value, rate }) => reducer({ rate }, { type: 'input', value })
+const init = ({ value, rate }: { value: number; rate: number }) =>
+  reducer({ rate, source: 'input' } as State, {
+    type: 'input',
+    payload: { value },
+  })
 
-const useForexInput = (type, state, dispatch) => ({
-  ref: useRef(),
+const useForexInput = (type: Source, state: State, dispatch: Dispatch) => ({
+  ref: useRef<HTMLInputElement>(null),
   value: format(state[type]),
-  onChange: e => dispatch({ type, value: e.target.value }),
-  onFocus: () => dispatch({ type: 'focus', source: type }),
+  onChange: (e: any) => dispatch({ type, payload: { value: e.target.value } }),
+  onFocus: () => dispatch({ type: 'focus', payload: { source: type } }),
 })
 
-const useForexForm = (initialValue, rate = 0) => {
+const useForexForm = (initialValue: number, rate: number = 0) => {
   const initialState = { value: initialValue, rate }
   const [state, dispatch] = useReducer(reducer, initialState, init)
 
   useEffect(() => {
     if (typeof rate !== 'number') return
-    dispatch({ type: 'forex', rate })
+    dispatch({ type: 'forex', payload: { rate } })
   }, [rate])
 
   const forms = {
@@ -53,28 +87,35 @@ const useForexForm = (initialValue, rate = 0) => {
   }
 
   const reset = (value = initialValue) => {
-    dispatch({ type: 'input', value, rate })
-    if (forms[state.source].ref.current) forms[state.source].ref.current.focus()
+    dispatch({ type: 'input', payload: { value, rate } })
+    const { current: element } = forms[state.source].ref
+    if (element) element.focus()
   }
 
-  return [state.input, reset, forms]
+  type ForexForm = [State['input'], typeof reset, typeof forms]
+  return [state.input, reset, forms] as ForexForm
 }
 
-const usePrevious = value => {
-  const ref = useRef()
+const usePrevious = (value: any) => {
+  const ref = useRef<any>()
   useEffect(() => {
     ref.current = value
   })
   return ref.current
 }
 
-const selectRef = ({ current } = {}) => {
+type HTMLInputRef = { ref: React.RefObject<HTMLInputElement> }
+
+const selectRef = ({ current }: HTMLInputRef['ref']) => {
   if (!current) return
   current.focus()
   current.select()
 }
 
-const useFocus = ({ input, output }, { from, to }) => {
+const useFocus = (
+  { input, output }: { input: HTMLInputRef; output: HTMLInputRef },
+  { from, to }: { from: string; to: string },
+) => {
   const previousFrom = usePrevious(from)
   const previousTo = usePrevious(to)
 
@@ -84,7 +125,15 @@ const useFocus = ({ input, output }, { from, to }) => {
   }, [from, to, input.ref, output.ref, previousFrom, previousTo])
 }
 
-const ExchangeForm = props => {
+type ExchangeFormProps = {
+  initialAmount?: number
+  from: string
+  to: string
+  setFrom: (arg: React.ChangeEvent<HTMLSelectElement> | string) => void
+  setTo: (arg: React.ChangeEvent<HTMLSelectElement> | string) => void
+}
+
+const ExchangeForm = (props: ExchangeFormProps) => {
   const { initialAmount = 0, from, setFrom, to, setTo, ...other } = props
   const browserOnline = useOnlineStatus()
   const [rate, { online: forexOnline, error }] = useForex(from, to)
@@ -96,7 +145,7 @@ const ExchangeForm = props => {
 
   useFocus(forms, props)
 
-  const handleSubmit = event => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     if (!enabled) return
     const amount = Dinero({ amount: requested.getAmount(), currency: from })
@@ -104,7 +153,7 @@ const ExchangeForm = props => {
     reset()
   }
 
-  const flip = event => {
+  const flip = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault()
     const current = { to, from }
     setTo(current.from)
@@ -116,7 +165,7 @@ const ExchangeForm = props => {
       <InputLine currency={from} setCurrency={setFrom} form={forms.input} />
       <FlipButton.Absolute rate={rate} onClick={flip} />
       <OutputLine currency={to} setCurrency={setTo} form={forms.output} />
-      <Button type='submit' disabled={!enabled}>
+      <Button disabled={!enabled}>
         {overdraft ? 'OVERDRAFT!' : 'exchange'}
       </Button>
     </form>

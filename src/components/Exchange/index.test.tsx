@@ -21,10 +21,18 @@ it('renders without crashing', () => {
   )
 })
 
-const getValue = event => (event && event.target ? event.target.value : event)
+const getValue = (event: any) =>
+  event && event.target ? event.target.value : event
+
+type Elements = ReturnType<typeof getExchange>
+const ensure = (elements: Elements) => {
+  if (!elements.from) throw new Error('missing "from" input')
+  if (!elements.to) throw new Error('missing "to" input')
+  return elements as { [P in keyof Elements]: any }
+}
 
 describe('currency change propagation', () => {
-  const props = {
+  const props: any = {
     from: 'GBP',
     to: 'EUR',
     setFrom: jest.fn(e => (props.from = getValue(e))).mockName('setFrom'),
@@ -32,10 +40,12 @@ describe('currency change propagation', () => {
   }
 
   const { container } = render(<WrappedExchange {...props} />)
-  const elements = getExchange(container)
+
+  const elements = ensure(getExchange(container))
 
   expect(props.setFrom).not.toBeCalled()
   expect(props.setTo).not.toBeCalled()
+
   expect(elements.from.value).toBe(props.from)
   expect(elements.to.value).toBe(props.to)
 
@@ -57,7 +67,7 @@ describe('currency change propagation', () => {
 })
 
 it('swaps currencies by clicking on the flip button', async () => {
-  const props = {
+  const props: any = {
     from: 'GBP',
     to: 'EUR',
     setFrom: jest.fn().mockName('setFrom'),
@@ -66,7 +76,7 @@ it('swaps currencies by clicking on the flip button', async () => {
 
   const { container } = render(<WrappedExchange {...props} />)
 
-  await waitForEvent('click', () => getExchange(container).flip)
+  await waitForEvent('click', () => ensure(getExchange(container)).flip)
   expect(props.setFrom).toHaveBeenCalledTimes(1)
   expect(props.setTo).toHaveBeenCalledTimes(1)
   expect(props.setFrom).toHaveBeenLastCalledWith(props.to)

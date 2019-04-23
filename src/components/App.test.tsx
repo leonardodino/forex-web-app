@@ -1,14 +1,16 @@
 import React from 'react'
 import { fireEvent, cleanup, act, waitForElement } from 'react-testing-library'
-import renderWithRouter from '../test-utils/render-with-router'
+import render from '../test-utils/render-with-router'
 import wrapInProviders from '../test-utils/wrap-in-providers'
 import getElements from '../test-utils/get-elements'
 import fetchRates from '../api/fetch-rates'
 import { BareApp } from './App'
 
-const getFloatValue = string => parseFloat(string.replace(/[^\d.]+/g, ''))
-const AppWithoutRouter = wrapInProviders(BareApp)
-const renderApp = options => renderWithRouter(<AppWithoutRouter />, options)
+type RouterOptions = Parameters<typeof render>[1]
+
+const getFloatValue = (str: string) => parseFloat(str.replace(/[^\d.]+/g, ''))
+const WrappedApp = wrapInProviders(BareApp)
+const renderApp = (options?: RouterOptions) => render(<WrappedApp />, options)
 
 beforeAll(() => fireEvent(window, new Event('online')))
 afterAll(cleanup)
@@ -21,8 +23,8 @@ describe('the happy path', () => {
   it('has redirected to the exchange route', () => {
     expect(history.location.pathname).toBe('/exchange/GBPxEUR')
   })
-
-  let exchange, pockets, rate
+  type Elements = ReturnType<typeof getElements>
+  let exchange: Elements['exchange'], pockets: Elements['pockets'], rate: number
 
   it('contains the expected elements', async () => {
     await waitForElement(() => getElements(container).exchange.flip)
@@ -32,11 +34,12 @@ describe('the happy path', () => {
     expect(exchange.output).toBeInTheDocument()
     expect(exchange.form).toBeInTheDocument()
     expect(exchange.flip).toBeInTheDocument()
-    rate = getFloatValue(exchange.flip.textContent)
+    expect(exchange!.flip!.textContent).not.toBeNull()
+    rate = getFloatValue(exchange!.flip!.textContent as string)
   })
 
   it('correctly exhanges 50GBP into EUR', () => {
-    fireEvent.change(exchange.input, { target: { value: '50.00' } })
+    fireEvent.change(exchange!.input as Element, { target: { value: '50.00' } })
     fireEvent.submit(exchange.form)
 
     expect(pockets.GBP.currentAmount()).toBe(50)
@@ -44,7 +47,7 @@ describe('the happy path', () => {
   })
 
   it('overdraft if above limit', () => {
-    fireEvent.change(exchange.input, { target: { value: '51.00' } })
+    fireEvent.change(exchange!.input as Element, { target: { value: '51.00' } })
     fireEvent.submit(exchange.form)
 
     expect(exchange.submit).toBeDisabled()
@@ -53,11 +56,13 @@ describe('the happy path', () => {
   })
 
   it('allows editing via output line, and clicking rates links', () => {
-    const links = [...pockets.EUR.card.querySelectorAll('a')]
-    const link = links.find(element => element.textContent.startsWith('GBP'))
+    const links = Array.from(pockets.EUR.card.querySelectorAll('a'))
+    const link = links.find(element => element!.textContent!.startsWith('GBP'))
+
+    if (!link) throw new Error('could not find a rate link to click')
 
     fireEvent.click(link) // output is now GBP
-    fireEvent.change(exchange.output, { target: { value: '50.00' } })
+    fireEvent.change(exchange!.output as any, { target: { value: '50.00' } })
 
     expect(exchange.submit).not.toBeDisabled()
     fireEvent.submit(exchange.form)
@@ -69,13 +74,13 @@ describe('the happy path', () => {
 
 describe('offline / error handling', () => {
   jest.useFakeTimers()
-  fetchRates.mockImplementationOnce(() => new Promise(() => {}))
+  !(fetchRates as jest.Mock).mockImplementationOnce(() => new Promise(() => {}))
 
   const { container } = renderApp()
 
   const getBadge = () => container.querySelector('[class^=NavBar__Badge]')
-  const getSubmit = () => getElements(container).exchange.submit
-  const getInput = () => getElements(container).exchange.input
+  const getSubmit = () => getElements(container)!.exchange!.submit as Element
+  const getInput = () => getElements(container)!.exchange!.input as Element
 
   fireEvent.change(getInput(), { target: { value: '50.00' } })
 
@@ -85,7 +90,7 @@ describe('offline / error handling', () => {
   })
 
   test('received data: "online" state', async () => {
-    await act(async () => { jest.advanceTimersByTime(10000) }) // prettier-ignore
+    await act(async () => jest.advanceTimersByTime(10000))
     fireEvent(window, new Event('online'))
     expect(getBadge()).not.toBeInTheDocument()
     expect(getSubmit()).not.toBeDisabled()
@@ -98,9 +103,11 @@ describe('offline / error handling', () => {
   })
 
   test('fetch error while online: "loading" state', async () => {
-    fetchRates.mockImplementationOnce(() => Promise.reject('api error'))
+    jest.spyOn(global.console, 'log').mockImplementation(() => {}) // hide console.log
+    !(fetchRates as jest.Mock).mockImplementationOnce(() => Promise.reject(''))
+
     fireEvent(window, new Event('online'))
-    await act(async () => { jest.advanceTimersByTime(11000) }) // prettier-ignore
+    await act(async () => jest.advanceTimersByTime(11000))
     expect(getBadge()).toHaveTextContent('loading...')
     expect(getSubmit()).toBeDisabled()
   })

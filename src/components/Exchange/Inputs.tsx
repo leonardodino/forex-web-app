@@ -58,8 +58,20 @@ const Transparent = styled.span`
   color: transparent;
   user-select: none;
 `
-
-const InputLine = ({ currency, setCurrency, prefix, form, ...props }) => (
+type InputLineProps = {
+  currency: string
+  setCurrency: React.ChangeEventHandler<HTMLSelectElement>
+  form: any
+  prefix?: string
+  ['data-testid']?: string
+}
+const InputLine: React.FunctionComponent<InputLineProps> = ({
+  currency,
+  setCurrency,
+  prefix,
+  form,
+  ...props
+}) => (
   <Wrapper {...props}>
     <StyledContainer>
       <CurrencySelector value={currency} onChange={setCurrency} />

@@ -55,7 +55,10 @@ const Rate = styled.div`
   flex: 0 0 auto;
 `
 
-const FlipButton = ({ rate, ...props }) => {
+type DOMProps = React.ComponentProps<typeof Wrapper>
+type FlipButtonProps = DOMProps & { rate?: number }
+
+const FlipButton = ({ rate, ...props }: FlipButtonProps) => {
   if (typeof rate !== 'number') return null
   return (
     <Wrapper type='button' {...props}>
@@ -74,7 +77,7 @@ const AbsoluteButton = styled(FlipButton)`
   transform: translate(-2px, -50%);
 `
 
-FlipButton.Absolute = ({ className, style, ...props }) => (
+FlipButton.Absolute = ({ className, style, ...props }: FlipButtonProps) => (
   <Container className={className} style={style}>
     <AbsoluteButton {...props} />
   </Container>
