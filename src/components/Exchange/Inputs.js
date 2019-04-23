@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components/macro'
-import { invert, base, borderRadius } from '../../utils/theme'
+import { invert, borderRadius } from '../../utils/theme'
+import { base } from '../../utils/style'
 import Container from '../Container'
 import CurrencySelector from './CurrencySelector'
 import InputFormatter from './InputFormatter'

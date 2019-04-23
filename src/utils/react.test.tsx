@@ -1,9 +1,9 @@
 import React from 'react'
-import ShallowRenderer from 'react-test-renderer/shallow'
+import { createRenderer } from 'react-test-renderer/shallow'
 import * as utils from './react'
 
-const shallow = ui => {
-  const renderer = new ShallowRenderer()
+const shallow = (ui: React.ReactElement) => {
+  const renderer = createRenderer()
   renderer.render(ui)
   return renderer.getRenderOutput()
 }
@@ -27,7 +27,7 @@ test('utils.getDisplayName gets the display name of a React component', () => {
     return <div />
   }
 
-  expect(utils.getDisplayName()).toBeUndefined()
+  expect(utils.getDisplayName(undefined as any)).toBeUndefined()
   expect(utils.getDisplayName(SomeComponent)).toBe('SomeComponent')
   expect(utils.getDisplayName(SomeOtherComponent)).toBe('CustomDisplayName')
   expect(utils.getDisplayName(YetAnotherComponent)).toBe('YetAnotherComponent')
@@ -48,12 +48,12 @@ test('wrapDisplayName wraps the display name of a React component with the name 
   )
 })
 
-test('wrapIn nests components from outer to inner', () => {
-  const A = ({ children }) => <div>{children}</div>
-  const B = ({ children }) => <div>{children}</div>
-  const C = ({ children }) => <div>{children}</div>
-  const D = ({ children }) => <div>{children}</div>
+const A: React.FunctionComponent<any> = ({ children }) => <div>{children}</div>
+const B: React.FunctionComponent<any> = ({ children }) => <div>{children}</div>
+const C: React.FunctionComponent<any> = ({ children }) => <div>{children}</div>
+const D: React.FunctionComponent<any> = ({ children }) => <div>{children}</div>
 
+test('wrapIn nests components from outer to inner', () => {
   const Nest = utils.wrapIn(A, B, C)(D)
 
   expect(Nest.displayName).toBe('wrapIn(A, B, C)(D)')

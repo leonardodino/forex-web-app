@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components/macro'
-import { fg, base, borderRadius, focus } from '../../utils/theme'
+import { fg, borderRadius } from '../../utils/theme'
+import { base, focus } from '../../utils/style'
 import Container from '../Container'
 
 const gap = '0.375rem'

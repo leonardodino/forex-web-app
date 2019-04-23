@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components/macro'
-import { base, invert } from '../utils/theme'
+import { invert } from '../utils/theme'
+import { base } from '../utils/style'
 
 const Wrapper = styled.div`
   ${base}

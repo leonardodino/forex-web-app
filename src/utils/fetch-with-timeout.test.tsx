@@ -1,10 +1,14 @@
 /**
  * @jest-environment node
  */
+
 import fetchWithTimeout, { TIMED_OUT } from './fetch-with-timeout'
 import { Response } from 'node-fetch'
 
-let resolveFetch, rejectFetch
+type AsyncFucntion = (...args: any[]) => Promise<any>
+declare const global: NodeJS.Global & { fetch: AsyncFucntion }
+
+let resolveFetch: (value?: any) => void, rejectFetch: (value?: any) => void
 
 const backup = global.fetch
 beforeAll(() => {
