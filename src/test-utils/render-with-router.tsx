@@ -6,7 +6,7 @@ import { createMemoryHistory } from 'history'
 // from: https://github.com/kentcdodds/react-testing-library/blob/a06a6ecb43/examples/__tests__/react-router.js#L36-L47
 
 const renderWithRouter = (
-  ui,
+  ui: React.ReactElement,
   {
     route = '/',
     history = createMemoryHistory({ initialEntries: [route] }),

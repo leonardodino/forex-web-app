@@ -4,7 +4,7 @@ import App from './components/App'
 
 jest.mock('react-dom', () => ({ render: jest.fn() }))
 
-let root = null
+let root: HTMLElement
 
 beforeEach(() => {
   root = document.createElement('div')
