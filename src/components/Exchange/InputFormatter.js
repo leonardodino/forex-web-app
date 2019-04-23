@@ -31,11 +31,11 @@ const InputFormatter = forwardRef(({ value, onChange, children }, ref) => {
 
   useEffect(() => {
     isEquivalent(text, value) || onChange({ target: { value: text } })
-  }, [text])
+  }, [text]) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     isEquivalent(text, value) || setText(format(value))
-  }, [value])
+  }, [value]) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <Rifm
