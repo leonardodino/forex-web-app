@@ -4,7 +4,16 @@ import { borderRadius } from '../utils/theme'
 import { base, focus } from '../utils/style'
 import Container from './Container'
 
-const GitHubIcon = ({ size = 24, color = 'currentColor', style, ...props }) => (
+type BaseProps = { className?: string; style?: React.CSSProperties }
+
+type IconProps = { size?: number; color?: string } & BaseProps
+
+const GitHubIcon = ({
+  size = 24,
+  color = 'currentColor',
+  style,
+  ...props
+}: IconProps) => (
   <svg
     width={size}
     height={size}
@@ -21,10 +30,10 @@ const GitHubIcon = ({ size = 24, color = 'currentColor', style, ...props }) => (
   </svg>
 )
 
-const Link = ({ to, children, className, style, target }) => {
-  const props = { className, style, children, target }
+type LinkProps = { to: string } & BaseProps
+const Link: React.FunctionComponent<LinkProps> = ({ to, ...props }) => {
   const other = { target: '_blank', rel: 'noopener noreferrer' }
-  return <a {...props} {...other} href={to} children={children} />
+  return <a {...props} {...other} href={to} children={props.children} />
 }
 
 const Wrapper = styled.div`

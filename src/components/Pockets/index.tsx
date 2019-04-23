@@ -36,7 +36,7 @@ const Row = styled.div`
   }
 `
 
-const Pockets = props => {
+const Pockets = (props: React.ComponentProps<typeof Wrapper>) => {
   const [funds] = usePockets()
   return (
     <Wrapper {...props}>

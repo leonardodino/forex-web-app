@@ -45,8 +45,9 @@ const Return = ({ size = 20, strokeWidth = 1.75, color = 'currentColor' }) => (
   </svg>
 )
 
-const SubmitButton = ({ children, ...props }) => (
-  <Wrapper {...props}>
+type SubmitButtonProps = React.ComponentProps<typeof Wrapper>
+const SubmitButton = ({ children, ...props }: SubmitButtonProps) => (
+  <Wrapper type='submit' {...props}>
     <Container>
       <Main>
         <Content>{children}</Content>

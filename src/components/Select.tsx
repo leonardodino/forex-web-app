@@ -37,7 +37,7 @@ const Value = styled.div`
   margin: 0.5rem 0.5rem 0.5rem 0;
 `
 
-const ChevronSVG = styled.svg`
+const ChevronSVG = styled.svg<{ size: number }>`
   width: ${p => p.size}px;
   height: ${p => p.size}px;
   fill: none;
@@ -50,7 +50,8 @@ const Chevron = ({ size = 16, strokeWidth = 1.5, color = 'currentColor' }) => (
   </ChevronSVG>
 )
 
-const Select = ({ style, className, ...props }) => (
+type SelectProps = React.ComponentProps<typeof Field>
+const Select = ({ style, className, ...props }: SelectProps) => (
   <Wrapper style={style} className={className}>
     <Value>{props.value}</Value>
     <Field {...props} />

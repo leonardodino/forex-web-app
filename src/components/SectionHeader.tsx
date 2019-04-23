@@ -7,9 +7,12 @@ const Wrapper = styled.header`
   ${base}
 `
 
-const getPaddingBottom = ({ paddingBottom = '' }) => paddingBottom
+type Props = { paddingBottom?: string | number }
+type Component = React.FunctionComponent<Props>
 
-const Title = styled.h1`
+const getPaddingBottom = ({ paddingBottom = '' }: Props) => paddingBottom
+
+const Title = styled.h1<Props>`
   font-size: 1.5rem;
   line-height: 1.5rem;
   font-weight: 700;
@@ -17,7 +20,7 @@ const Title = styled.h1`
   padding: 1rem 0 ${getPaddingBottom};
 `
 
-const SectionHeader = ({ children, paddingBottom, ...props }) => (
+const SectionHeader: Component = ({ children, paddingBottom, ...props }) => (
   <Wrapper {...props}>
     <Container>
       <Title paddingBottom={paddingBottom}>{children}</Title>
