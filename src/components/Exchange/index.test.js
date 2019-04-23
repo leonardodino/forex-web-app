@@ -1,7 +1,8 @@
 import React from 'react'
-import { render, fireEvent, cleanup, act } from 'react-testing-library'
+import { render, fireEvent, cleanup } from 'react-testing-library'
 import wrapInProviders from '../../test-utils/wrap-in-providers'
 import Exchange from './index'
+import waitForEvent from '../../test-utils/wait-for-event'
 import { getExchange } from '../../test-utils/get-elements'
 
 const WrappedExchange = wrapInProviders(Exchange)
@@ -55,7 +56,7 @@ describe('currency change propagation', () => {
   })
 })
 
-describe('swaps currencies by clicking on the flip button', () => {
+it('swaps currencies by clicking on the flip button', async () => {
   const props = {
     from: 'GBP',
     to: 'EUR',
@@ -65,7 +66,7 @@ describe('swaps currencies by clicking on the flip button', () => {
 
   const { container } = render(<WrappedExchange {...props} />)
 
-  fireEvent.click(getExchange(container).flip)
+  await waitForEvent('click', () => getExchange(container).flip)
   expect(props.setFrom).toHaveBeenCalledTimes(1)
   expect(props.setTo).toHaveBeenCalledTimes(1)
   expect(props.setFrom).toHaveBeenLastCalledWith(props.to)
