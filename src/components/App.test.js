@@ -1,5 +1,5 @@
 import React from 'react'
-import { fireEvent, cleanup, act } from 'react-testing-library'
+import { fireEvent, cleanup, act, waitForElement } from 'react-testing-library'
 import renderWithRouter from '../test-utils/render-with-router'
 import wrapInProviders from '../test-utils/wrap-in-providers'
 import getElements from '../test-utils/get-elements'
@@ -22,8 +22,18 @@ describe('the happy path', () => {
     expect(history.location.pathname).toBe('/exchange/GBPxEUR')
   })
 
-  const { exchange, pockets } = getElements(container)
-  const rate = getFloatValue(exchange.flip.textContent)
+  let exchange, pockets, rate
+
+  it('contains the expected elements', async () => {
+    await waitForElement(() => getElements(container).exchange.flip)
+    exchange = getElements(container).exchange
+    pockets = getElements(container).pockets
+    expect(exchange.input).toBeInTheDocument()
+    expect(exchange.output).toBeInTheDocument()
+    expect(exchange.form).toBeInTheDocument()
+    expect(exchange.flip).toBeInTheDocument()
+    rate = getFloatValue(exchange.flip.textContent)
+  })
 
   it('correctly exhanges 50GBP into EUR', () => {
     fireEvent.change(exchange.input, { target: { value: '50.00' } })
@@ -59,7 +69,7 @@ describe('the happy path', () => {
 
 describe('offline / error handling', () => {
   jest.useFakeTimers()
-  fetchRates.mockImplementationOnce(() => new Promise())
+  fetchRates.mockImplementationOnce(() => new Promise(() => {}))
 
   const { container } = renderApp()
 
@@ -74,8 +84,8 @@ describe('offline / error handling', () => {
     expect(getSubmit()).toBeDisabled()
   })
 
-  test('received data: "online" state', () => {
-    act(() => { jest.advanceTimersByTime(10000) }) // prettier-ignore
+  test('received data: "online" state', async () => {
+    await act(async () => { jest.advanceTimersByTime(10000) }) // prettier-ignore
     fireEvent(window, new Event('online'))
     expect(getBadge()).not.toBeInTheDocument()
     expect(getSubmit()).not.toBeDisabled()
@@ -87,10 +97,10 @@ describe('offline / error handling', () => {
     expect(getSubmit()).toBeDisabled()
   })
 
-  test('fetch error while online: "loading" state', () => {
+  test('fetch error while online: "loading" state', async () => {
     fetchRates.mockImplementationOnce(() => Promise.reject('api error'))
     fireEvent(window, new Event('online'))
-    act(() => { jest.advanceTimersByTime(11000) }) // prettier-ignore
+    await act(async () => { jest.advanceTimersByTime(11000) }) // prettier-ignore
     expect(getBadge()).toHaveTextContent('loading...')
     expect(getSubmit()).toBeDisabled()
   })
