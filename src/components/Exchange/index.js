@@ -81,7 +81,7 @@ const useFocus = ({ input, output }, { from, to }) => {
   useEffect(() => {
     if (previousFrom !== from) return selectRef(input.ref)
     if (previousTo !== to) return selectRef(output.ref)
-  }, [from, to])
+  }, [from, to, input.ref, output.ref, previousFrom, previousTo])
 }
 
 const ExchangeForm = props => {
