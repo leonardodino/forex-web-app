@@ -1,7 +1,8 @@
 import React from 'react'
 import styled from 'styled-components/macro'
 import { Link } from 'react-router-dom'
-import { Invert, fg, base, focus, borderRadius } from '../../utils/theme'
+import { Invert, fg, borderRadius } from '../../utils/theme'
+import { base, focus } from '../../utils/style'
 import { format } from '../../utils/dinero'
 import { useCurrencyForex } from '../../hooks/forex'
 

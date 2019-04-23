@@ -1,7 +1,7 @@
 import { format } from './dinero'
 
 test('dinero-utils: format(JPY)', () => {
-  const JPY = {
+  const JPY: any = {
     getPrecision: jest.fn().mockReturnValue(0),
     toFormat: jest.fn().mockName('toFormat'),
   }
@@ -12,7 +12,7 @@ test('dinero-utils: format(JPY)', () => {
 })
 
 test('dinero-utils: format(USD)', () => {
-  const USD = {
+  const USD: any = {
     getPrecision: jest.fn().mockReturnValue(2),
     toFormat: jest.fn().mockName('toFormat'),
   }

@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components/macro'
-import { base } from '../../utils/theme'
+import { base } from '../../utils/style'
 import { usePockets } from '../../hooks/pockets'
 import Container from '../Container'
 import SectionHeader from '../SectionHeader'

@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components/macro'
-import { base, focus, borderRadius } from '../utils/theme'
+import { borderRadius } from '../utils/theme'
+import { base, focus } from '../utils/style'
 import Container from './Container'
 
 const GitHubIcon = ({ size = 24, color = 'currentColor', style, ...props }) => (

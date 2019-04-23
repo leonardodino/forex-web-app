@@ -1,20 +1,24 @@
 import { createElement, createFactory } from 'react'
 
-export const getDisplayName = Component => {
+type Component<T = {}> = React.ElementType<T> | string
+
+export const getDisplayName = (Component: Component) => {
   if (typeof Component === 'string') return Component
   if (!Component) return undefined
   return Component.displayName || Component.name || 'Component'
 }
 
-export const wrapDisplayName = (fnName, Component) =>
+export const wrapDisplayName = (fnName: string, Component: Component) =>
   `${fnName}(${getDisplayName(Component)})`
 
-export const wrapIn = (...Providers) => {
-  const factories = Providers.map(provider => createFactory(provider))
-  return Component => {
-    const WrapIn = ({ children, ...props }) =>
+type AnyComponent<T = any> = React.ComponentType<T>
+
+export const wrapIn = (...Providers: AnyComponent[]) => {
+  const factories = Providers.map(provider => createFactory(provider as any))
+  return (Component: AnyComponent): AnyComponent => {
+    const WrapIn: React.FunctionComponent = ({ children, ...props }) =>
       factories.reduceRight(
-        (child, factory) => factory(null, child),
+        (child, factory) => factory(undefined, child),
         createElement(Component, props, children),
       )
 

@@ -1131,6 +1131,11 @@
   dependencies:
     "@babel/types" "^7.3.0"
 
+"@types/dinero.js@^1.4.0":
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/@types/dinero.js/-/dinero.js-1.4.0.tgz#d00097a9dbbc7a732a26a814c3c999054285aa4e"
+  integrity sha512-5zvqxoVCrZkxhNzf7rMeiuJ0vpO7jKxmRQJvurSucvsZlPJPjVuemx/twqrDU7JPSOTCyF5TNfe4EmkhVVUJqw==
+
 "@types/istanbul-lib-coverage@^2.0.0":
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@types/istanbul-lib-coverage/-/istanbul-lib-coverage-2.0.0.tgz#1eb8c033e98cf4e1a4cedcaf8bcafe8cb7591e85"
@@ -1147,6 +1152,13 @@
   integrity sha512-2kLuPC5FDnWIDvaJBzsGTBQaBbnDweznicvK7UGYzlIJP4RJR2a4A/ByLUXEyEgag6jz8eHdlWExGDtH3EYUXQ==
   dependencies:
     "@types/jest-diff" "*"
+
+"@types/node-fetch@^2.3.2":
+  version "2.3.2"
+  resolved "https://registry.yarnpkg.com/@types/node-fetch/-/node-fetch-2.3.2.tgz#e01893b176c6fa1367743726380d65bce5d6576b"
+  integrity sha512-yW0EOebSsQme9yKu09XbdDfle4/SmWZMK4dfteWcSLCYNQQcF+YOv0kIrvm+9pO11/ghA4E6A+RNQqvYj4Nr3A==
+  dependencies:
+    "@types/node" "*"
 
 "@types/node@*", "@types/node@^11.13.7":
   version "11.13.7"
@@ -1170,6 +1182,13 @@
   dependencies:
     "@types/react" "*"
 
+"@types/react-test-renderer@^16.8.1":
+  version "16.8.1"
+  resolved "https://registry.yarnpkg.com/@types/react-test-renderer/-/react-test-renderer-16.8.1.tgz#96f3ce45a3a41c94eca532a99103dd3042c9d055"
+  integrity sha512-8gU69ELfJGxzVWVYj4MTtuHxz9nO+d175XeQ1XrXXxesUBsB4KK6OCfzVhEX6leZWWBDVtMJXp/rUjhClzL7gw==
+  dependencies:
+    "@types/react" "*"
+
 "@types/react@*", "@types/react@^16.8.14":
   version "16.8.14"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-16.8.14.tgz#b561bfabeb8f60d12e6d4766367e7a9ae927aa18"
@@ -1178,10 +1197,24 @@
     "@types/prop-types" "*"
     csstype "^2.2.0"
 
+"@types/redux-actions@^2.6.0":
+  version "2.6.0"
+  resolved "https://registry.yarnpkg.com/@types/redux-actions/-/redux-actions-2.6.0.tgz#3732391d7086e464b3341a190d914a72432dae9d"
+  integrity sha512-K1LwS+MW7CGzZyOS35xEWvKz0pTyQyfygCgj57qpntbP5SD/F/f1qJwRpJIFmJUpHPwOX/eqWe/8O19bycu8eg==
+
 "@types/stack-utils@^1.0.1":
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@types/stack-utils/-/stack-utils-1.0.1.tgz#0a851d3bd96498fa25c33ab7278ed3bd65f06c3e"
   integrity sha512-l42BggppR6zLmpfU6fq9HEa2oGPEI8yrSPL3GITjfRInppYFahObbIQOQK3UGxEnyQpltZLaPe75046NOZQikw==
+
+"@types/styled-components@4.1.8":
+  version "4.1.8"
+  resolved "https://registry.yarnpkg.com/@types/styled-components/-/styled-components-4.1.8.tgz#15c8a53bb4b9066e528fafb7558963dee5690ae0"
+  integrity sha512-NrG0wmB9Rafy5i00GFxUM/uEge148bX2QPr+Q/MI2fXrew6WOp1hN2A3YEG0AeT45z47CMdJ3BEffPsdQCWayA==
+  dependencies:
+    "@types/node" "*"
+    "@types/react" "*"
+    csstype "^2.2.0"
 
 "@types/unist@*", "@types/unist@^2.0.0", "@types/unist@^2.0.2":
   version "2.0.3"

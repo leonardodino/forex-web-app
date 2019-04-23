@@ -1,6 +1,11 @@
 export const TIMED_OUT = new Error('Fetch Timeout')
 
-const fetchWithTimeout = (url, { timeout = 5000, ...options } = {}) =>
+type Options = RequestInit & { timeout?: number }
+
+const fetchWithTimeout = (
+  url: RequestInfo,
+  { timeout = 5000, ...options }: Options = {},
+): Promise<Response> =>
   new Promise((resolve, reject) => {
     const id = setTimeout(() => reject(TIMED_OUT), timeout)
     return fetch(url, options).then(
