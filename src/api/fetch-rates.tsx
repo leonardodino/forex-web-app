@@ -20,7 +20,10 @@ const fetchRates = async (
   const list = currencies.join(',')
   const res = await fetch(`${API_URL}&fsyms=${list}&tsyms=${list}`, { timeout })
 
+  /* istanbul ignore if */
   if (!res) throw new Error('[600]: empty response')
+
+  /* istanbul ignore if */
   if (!res.ok) throw new Error(`[${res.status}]: ${await res.text()}`)
 
   const rates = Object.entries<Rates>(await res.json())

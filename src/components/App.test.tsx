@@ -70,6 +70,21 @@ describe('the happy path', () => {
     expect(pockets.GBP.currentAmount()).toBeCloseTo(100, 0)
     expect(pockets.EUR.currentAmount()).toBeCloseTo(100, 0)
   })
+
+  it('flips currency', async () => {
+    expect(exchange.from!.value).toBe('EUR')
+    expect(exchange.to!.value).toBe('GBP')
+
+    fireEvent.click(exchange.flip!)
+
+    expect(exchange.from!.value).toBe('GBP')
+    expect(exchange.to!.value).toBe('EUR')
+
+    fireEvent.change(exchange.from!, { target: { value: 'USD' } })
+
+    expect(exchange.from!.value).toBe('USD')
+    expect(exchange.to!.value).toBe('EUR')
+  })
 })
 
 describe('offline / error handling', () => {

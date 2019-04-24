@@ -5,7 +5,7 @@ const cleanup = (str: string) => str.replace(/[^\d.]+/g, '')
 const isEquivalent = (a: string, b: string) => cleanup(a) === cleanup(b)
 
 // source: https://github.com/istarkov/rifm/blob/9b8960715/docs/format.js#L20
-const format = (str: string) => {
+export const format = (str: string) => {
   const clean = cleanup(str)
 
   const beautify =

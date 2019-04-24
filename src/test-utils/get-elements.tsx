@@ -7,8 +7,7 @@ const $id = (container: HTMLElement) => (id: Matcher) =>
 export const getPocket = (container: HTMLElement, currency: string) => {
   const card = getByTestId(container, `PocketCard-${currency}`)
   const header = getByTestId(card, 'PocketCardHeader')
-  if (!header) throw new Error(`could not find ${currency} pocket in DOM`)
-  const currentAmount = () => getFloatValue(String(header.textContent))
+  const currentAmount = () => getFloatValue(String(header!.textContent))
   return { card, header, currentAmount }
 }
 
