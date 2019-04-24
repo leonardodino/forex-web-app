@@ -38,10 +38,9 @@ const reducer = handleActions<FundsState, ExchangePayload>({
   },
 })
 
-const noop = () => {}
 const createPockets = (currencies: string[]) => {
   const FundsContext = createContext<FundsState>({})
-  const DispatchContext = createContext(noop)
+  const DispatchContext = createContext<() => void>(null as any)
 
   const Provider: React.FunctionComponent = ({ children }) => {
     const [funds, dispatch] = useReducer(reducer, { currencies }, init)

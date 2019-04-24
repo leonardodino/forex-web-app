@@ -22,3 +22,7 @@ test('throws with less than 2 currencies', async () => {
   await expect(fetchRates([])).rejects.toThrow('less than 2 currencies')
   await expect(fetchRates(['USD'])).rejects.toThrow('less than 2 currencies')
 })
+
+test('api coverage', async () => {
+  await expect(fetchRates(['USD', 'USD'])).rejects.toThrow('[600]')
+})

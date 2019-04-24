@@ -77,6 +77,7 @@ const useForexForm = (initialValue: number, rate: number = 0) => {
   const [state, dispatch] = useReducer(reducer, initialState, init)
 
   useEffect(() => {
+    /* istanbul ignore if */
     if (typeof rate !== 'number') return
     dispatch({ type: 'forex', payload: { rate } })
   }, [rate])
@@ -89,6 +90,7 @@ const useForexForm = (initialValue: number, rate: number = 0) => {
   const reset = (value = initialValue) => {
     dispatch({ type: 'input', payload: { value, rate } })
     const { current: element } = forms[state.source].ref
+    /* istanbul ignore else */
     if (element) element.focus()
   }
 
@@ -107,6 +109,7 @@ const usePrevious = (value: any) => {
 type HTMLInputRef = { ref: React.RefObject<HTMLInputElement> }
 
 const selectRef = ({ current }: HTMLInputRef['ref']) => {
+  /* istanbul ignore if */
   if (!current) return
   current.focus()
   current.select()
