@@ -1,32 +1,27 @@
-# :currency_exchange: [forex web app](https://forex.leonardodino.com) <img alt="iphone mockup" height="560" align="right" src="https://user-images.githubusercontent.com/8649362/53637603-5aa6e900-3c02-11e9-8ccf-10e445aa9a59.png"/>
+# :currency_exchange: [forex web app](https://forex.leonardodino.com) <small><small><sub><sup>&middot; &thinsp;frontend development assignment</sup></sub></small></small> [<img alt="iphone mockup" height="560" align="right" src="https://user-images.githubusercontent.com/8649362/53637603-5aa6e900-3c02-11e9-8ccf-10e445aa9a59.png"/>](https://forex.leonardodino.com)
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/a7700bf8-8021-4750-a84c-625fd9826cb4/deploy-status)](https://app.netlify.com/sites/forex-web-app/deploys)
 [![Build Status](https://travis-ci.com/leonardodino/forex-web-app.svg?branch=master)](https://travis-ci.com/leonardodino/forex-web-app)
 [![Code Coverage](https://badgen.net/codecov/c/github/leonardodino/forex-web-app)](https://codecov.io/gh/leonardodino/forex-web-app)
 [![License](https://badgen.net/github/license/leonardodino/forex-web-app)](https://github.com/leonardodino/forex-web-app/blob/master/LICENSE)
+[![kunst.com.br](https://badgen.net/badge/@/kunst.com.br?color=black)](https://kunst.com.br)
 
-**Frontend Development Home Task**: single screen forex web app
-
-<sup>:briefcase: The original work was done part-time, between [`22/01/2019`](https://github.com/leonardodino/forex-web-app/commit/5053772e82cb21c1d86a0fdb11b6d7db0465ee23) and [`01/02/2019`](https://github.com/leonardodino/forex-web-app/commit/bba2dda4ec6c52e7df381fee62b80476f318eab4).</sup>
-
-<sup>:nerd_face: More recently, the code was refactored into [`typescript`](https://github.com/leonardodino/forex-web-app/pull/2), as an exercise.</sup>
+> this project was originally done for a job interview. half-time for a week
 
 ## :flight_departure: Quick Start
 
-> Make sure you have all [the system dependencies](#system-dependencies) before proceeding.
-
 ```bash
-# Make a copy of this project
+# Make a copy of this repo
 $ git clone https://github.com/leonardodino/forex-web-app
 $ cd forex-web-app
 
 # Install project dependencies
 $ yarn
 
-# Development server
+# Start development server
 $ yarn start # Opens browser at http://localhost:3000
 
-# Development test watcher
+# Start development test watcher
 $ yarn test --coverage
 
 # Production build
@@ -34,9 +29,9 @@ $ yarn build      # Outputs to ./build directory
 $ npx serve build # Static server for the built website
 ```
 
-For details more about these scripts, refer to the [Create React App docs](https://facebook.github.io/create-react-app/docs/getting-started).
-
 ## :sparkles: Features
+
+<img src="https://user-images.githubusercontent.com/8649362/56626276-6bc71180-6617-11e9-9f0f-3a8b4ba6ea90.gif" align="left" height="220" width="220"/><img src="https://user-images.githubusercontent.com/8649362/56626450-163f3480-6618-11e9-87a6-b4cdcf99ad0e.gif" align="left" height="220" width="0"/>
 
 - [x] :alembic: react hooks + context
 - [x] :art: 8pt grid + simple design
@@ -65,16 +60,4 @@ For details more about these scripts, refer to the [Create React App docs](https
 | [Crypto Compare API](https://min-api.cryptocompare.com/)          | [![License](https://badgen.net/badge/license/CC%20BY-NC/blue)](https://min-api.cryptocompare.com/faq)                                                          | free forex api, updates every 10 seconds              |
 | [iPhone Mockup](http://www.designbolts.com/download/56032/)       | [![License](https://badgen.net/badge/license/link%20back/purple)](http://www.designbolts.com/2017/09/14/free-vector-apple-iphone-8-mockup-ai-eps/)             | free vector apple iphone 8 mockup ai & eps            |
 
-<sup>> special thanks to [GitHub](https://github.com), [Netlify](https://netlify.com), [NPM](https://npmjs.com), [Travis CI](https://travis-ci.com), and [CodeCov](https://codecov.io) for supporting open-source projects with free tiers (: </sup>
-
-### System Dependencies
-
-| name     | minimum version |
-| :------- | --------------: |
-| **git**  |         `2.0.0` |
-| **node** |         `8.0.0` |
-| **yarn** |         `1.0.0` |
-
-## :page_facing_up: License
-
-[MIT](LICENSE)
+<sup>> special thanks to [GitHub](https://github.com), [Netlify](https://netlify.com), [NPM](https://npmjs.com), [Travis CI](https://travis-ci.com), and [CodeCov](https://codecov.io) for supporting open-source projects with free tiers! </sup>
