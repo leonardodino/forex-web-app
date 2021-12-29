@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/forex-web-app/static/css/main.dfe6f74c.chunk.css",
+    "main.js": "/forex-web-app/static/js/main.65ad2338.chunk.js",
+    "main.js.map": "/forex-web-app/static/js/main.65ad2338.chunk.js.map",
+    "runtime~main.js": "/forex-web-app/static/js/runtime~main.17b234b7.js",
+    "runtime~main.js.map": "/forex-web-app/static/js/runtime~main.17b234b7.js.map",
+    "static/css/2.890262d6.chunk.css": "/forex-web-app/static/css/2.890262d6.chunk.css",
+    "static/js/2.042bbb8b.chunk.js": "/forex-web-app/static/js/2.042bbb8b.chunk.js",
+    "static/js/2.042bbb8b.chunk.js.map": "/forex-web-app/static/js/2.042bbb8b.chunk.js.map",
+    "index.html": "/forex-web-app/index.html",
+    "precache-manifest.52ee5fbc8333acbfbc2f6af6ca7a4c81.js": "/forex-web-app/precache-manifest.52ee5fbc8333acbfbc2f6af6ca7a4c81.js",
+    "service-worker.js": "/forex-web-app/service-worker.js",
+    "static/css/2.890262d6.chunk.css.map": "/forex-web-app/static/css/2.890262d6.chunk.css.map",
+    "static/css/main.dfe6f74c.chunk.css.map": "/forex-web-app/static/css/main.dfe6f74c.chunk.css.map"
+  }
+}
