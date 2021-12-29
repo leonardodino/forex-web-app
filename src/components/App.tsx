@@ -8,13 +8,18 @@ import { Provider as StyleProvider } from './GlobalStyle'
 import NavBar from './NavBar'
 import Routes from './Routes'
 import Footer from './Footer'
+import { BASENAME } from '../constants'
+
+const CustomRouter: React.FC = ({ children }) => (
+  <BrowserRouter basename={BASENAME}>{children}</BrowserRouter>
+)
 
 const enhance = wrapIn(
   ThemeProvider,
   PocketsProvider,
   ForexProvider,
   StyleProvider,
-  BrowserRouter,
+  CustomRouter,
 )
 
 const App = () => {

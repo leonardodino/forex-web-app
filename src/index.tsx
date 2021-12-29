@@ -3,7 +3,13 @@ import ReactDOM from 'react-dom'
 import 'minireset.css'
 import './index.css'
 import App from './components/App'
+import { BASENAME } from './constants'
 import * as serviceWorker from './service-worker'
+
+if (window.location.pathname.indexOf(BASENAME) !== 0) {
+  const url = BASENAME + window.location.pathname
+  window.history.replaceState(window.history.state, '', url)
+}
 
 ReactDOM.render(<App />, document.getElementById('root'))
 
