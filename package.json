@@ -10,7 +10,7 @@
     "url": "https://github.com/leonardodino/forex-web-app.git"
   },
   "engines": {
-    "node": ">=8.0.0"
+    "node": ">=16.0.0"
   },
   "scripts": {
     "type-check": "tsc --isolatedModules false",
