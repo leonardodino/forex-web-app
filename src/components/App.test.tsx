@@ -1,16 +1,23 @@
 import React from 'react'
-import { fireEvent, cleanup, act, waitForElement } from 'react-testing-library'
-import render from '../test-utils/render-with-router'
+import {
+  render,
+  fireEvent,
+  cleanup,
+  act,
+  waitForElement,
+} from 'react-testing-library'
+import { renderWithRouter } from '../test-utils/render-with-router'
 import wrapInProviders from '../test-utils/wrap-in-providers'
 import getElements from '../test-utils/get-elements'
 import fetchRates from '../api/fetch-rates'
-import { BareApp } from './App'
+import App, { BareApp } from './App'
 
-type RouterOptions = Parameters<typeof render>[1]
+type RouterOptions = Parameters<typeof renderWithRouter>[1]
 
 const getFloatValue = (str: string) => parseFloat(str.replace(/[^\d.]+/g, ''))
 const WrappedApp = wrapInProviders(BareApp)
-const renderApp = (options?: RouterOptions) => render(<WrappedApp />, options)
+const renderApp = (options?: RouterOptions) =>
+  renderWithRouter(<WrappedApp />, options)
 
 beforeAll(() => fireEvent(window, new Event('online')))
 afterAll(cleanup)
@@ -126,4 +133,9 @@ describe('offline / error handling', () => {
     expect(getBadge()).toHaveTextContent('loading...')
     expect(getSubmit()).toBeDisabled()
   })
+})
+
+describe('router', () => {
+  render(<App />)
+  expect(window.location.pathname).toBe('/forex-web-app/exchange/GBPxEUR')
 })

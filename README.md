@@ -1,12 +1,12 @@
-# :currency_exchange: [forex web app](https://forex.leonardodino.com) <small><small><sub><sup>&middot; &thinsp;frontend development assignment</sup></sub></small></small> [<img alt="iphone mockup" height="560" align="right" src="https://user-images.githubusercontent.com/8649362/53637603-5aa6e900-3c02-11e9-8ccf-10e445aa9a59.png"/>](https://forex.leonardodino.com)
+# :currency_exchange: [forex web app](https://leonardodino.github.io/forex-web-app/) <small><small><sub><sup>&middot; &thinsp;frontend development assignment</sup></sub></small></small> [<img alt="iphone mockup" height="560" align="right" src="https://user-images.githubusercontent.com/8649362/53637603-5aa6e900-3c02-11e9-8ccf-10e445aa9a59.png"/>](https://leonardodino.github.io/forex-web-app/)
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/a7700bf8-8021-4750-a84c-625fd9826cb4/deploy-status)](https://app.netlify.com/sites/forex-web-app/deploys)
-[![Build Status](https://travis-ci.com/leonardodino/forex-web-app.svg?branch=master)](https://travis-ci.com/leonardodino/forex-web-app)
+[![ci](https://github.com/leonardodino/forex-web-app/actions/workflows/ci.yml/badge.svg?event=push)](https://github.com/leonardodino/forex-web-app/actions/workflows/ci.yml?query=branch:master)
+[![Build Status](https://api.travis-ci.com/leonardodino/forex-web-app.svg?branch=master)](https://www.travis-ci.com/github/leonardodino/forex-web-app)
 [![Code Coverage](https://badgen.net/codecov/c/github/leonardodino/forex-web-app)](https://codecov.io/gh/leonardodino/forex-web-app)
 [![License](https://badgen.net/github/license/leonardodino/forex-web-app)](https://github.com/leonardodino/forex-web-app/blob/master/LICENSE)
 [![kunst.com.br](https://badgen.net/badge/@/kunst.com.br?color=black)](https://kunst.com.br)
 
-> this project was originally done for a job interview. half-time for a week
+> this project was a take-home exercise for a job interview (in [2019](https://github.com/leonardodino/forex-web-app/tree/HEAD@{2019-03-02}))
 
 ## :flight_departure: Quick Start
 
@@ -61,3 +61,5 @@ $ npx serve build # Static server for the built website
 | [iPhone Mockup](http://www.designbolts.com/download/56032/)       | [![License](https://badgen.net/badge/license/link%20back/purple)](http://www.designbolts.com/2017/09/14/free-vector-apple-iphone-8-mockup-ai-eps/)             | free vector apple iphone 8 mockup ai & eps            |
 
 <sup>> special thanks to [GitHub](https://github.com), [Netlify](https://netlify.com), [NPM](https://npmjs.com), [Travis CI](https://travis-ci.com), and [CodeCov](https://codecov.io) for supporting open-source projects with free tiers! </sup>
+
+&copy; 2019 [Leonardo Dino](https://leonardodino.com)

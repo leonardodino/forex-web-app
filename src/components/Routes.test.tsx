@@ -1,6 +1,6 @@
 import React from 'react'
 import { fireEvent, cleanup } from 'react-testing-library'
-import render from '../test-utils/render-with-router'
+import { renderWithRouter as render } from '../test-utils/render-with-router'
 import wrapInProviders from '../test-utils/wrap-in-providers'
 import getElements from '../test-utils/get-elements'
 import BareRoutes from './Routes'

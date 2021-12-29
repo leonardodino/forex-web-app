@@ -62,7 +62,7 @@ const Anchor = styled(Link)`
 const Footer = () => (
   <Wrapper>
     <StyledContainer style={{ marginTop: 'auto' }}>
-      <Anchor to='https://github.com/leonardodino'>leonardodino</Anchor>
+      <Anchor to='https://leonardodino.com'>leonardo dino</Anchor>
       <Anchor to='https://github.com/leonardodino/forex-web-app'>
         <GitHubIcon style={{ margin: '0.25rem' }} />
       </Anchor>

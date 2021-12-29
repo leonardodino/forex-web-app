@@ -1,5 +1,4 @@
 [[redirects]]
 from = "/*"
-to = "/index.html"
-status = 200
-force = false
+to = "https://leonardodino.github.io/forex-web-app/"
+force = true
